@@ -1,0 +1,11 @@
+{
+  "name": "proyecto-implementos-ingsofware",
+  "version": "1.0.0",
+  "description": "- Esta es la base de codigo para el proyecto de ingeniería de software",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
