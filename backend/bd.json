@@ -1,0 +1,86 @@
+{
+    "Brigadista":{
+        "nombre":{
+            "type":"String",
+            "required":true
+        },
+
+        "email":{
+            "type": "String",
+            "required": true,
+            "unique": true
+        }
+    },
+    "Posee":{
+        "brigadista":{
+            "type":"Schema.ObjectID",
+            "ref":"Brigadista"
+        },
+        "capacitacion":{
+            "type":"Schema.ObjectID",
+            "ref":"capacitacion"
+        }
+    },
+    "asigna":{
+        "brigadista":{
+            "type":"Schema.ObjectID",
+            "ref":"Brigadista"
+        },
+        "implemento":{
+            "type":"Schema.ObjectID",
+            "ref":"Implemento"
+        }
+    },
+    "Encargado":{
+        "nombre":{
+            "type":"String",
+            "required":true
+        },
+        "email":{
+            "type": "String",
+            "required": true,
+            "unique": true
+        }
+    },
+    "modifica":{
+        "encargado":{
+            "type":"Schema.ObjectID",
+            "ref":"Encargado"
+        },
+        "implemento":{
+            "type":"Schema.ObjectID",
+            "ref":"Implemento"
+        }
+    },
+    "Implemento":{
+        "nombre":{
+            "type":"String",
+            "required":true
+        },
+        "estado":{
+            "type":"Schema.ObjectID",
+            "ref":"estado"
+        },
+        "fecha de vencimiento":{
+            "type": "date",
+            "required":true
+        },
+        "categoria":{
+            "type":"Schema.ObjectID",
+            "ref":"categoria"
+        }
+    },
+    "categoria":{
+        "type":"String",
+        "required":true
+    },
+    "estado":{
+        "type":"String",
+        "required":true
+    },
+    "capacitacion":{
+        "type":"String",
+        "required":true
+    }
+
+}
