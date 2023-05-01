@@ -1,7 +1,14 @@
 const { respondSuccess, respondError } = require("../utils/resHandler");
+//const UserService = require("../services/user.service");
 const BrigadistaService = require("../services/brigadista.service");
 const { handleError } = require("../utils/errorHandler");
 
+/**
+ * @name getBrigadistas
+ * @description Obtiene todas las capacitaciones
+ * @param req {Request}
+ * @param res {Response}
+ */
 async function getBrigadistas(req, res) {
     try {
         const brigadistas = await BrigadistaService.getBrigadistas();
@@ -13,7 +20,12 @@ async function getBrigadistas(req, res) {
     }
 }
 
-
+/**
+ * @name createBrigadista
+ * @description Crea una nueva capacitacion
+ * @param req {Request}
+ * @param res {Response}
+ */
 async function createBrigadista(req, res) {
     try {
         const nuevoBrigadista = await BrigadistaService.createBrigadista(req.body);
@@ -33,7 +45,12 @@ async function createBrigadista(req, res) {
     }
 }
 
-
+/**
+ * @name getBrigadistaById
+ * @description Obtiene una Brigadista por su id
+ * @param req {Request}
+ * @param res {Response}
+ */
 async function getBrigadistaById(req, res) {
     try {
         const { id } = req.params;
@@ -54,6 +71,12 @@ async function getBrigadistaById(req, res) {
     }
 }
 
+/**
+ * @name updateBrigadista
+ * @description Actualiza una Brigadista por su id
+ * @param req {Request}
+ * @param res {Response}
+ */
 async function updateBrigadista(req, res) {
     try {
         const { id } = req.params;
@@ -74,6 +97,12 @@ async function updateBrigadista(req, res) {
     }
 }
 
+/**
+ * @name deleteBrigadista
+ * @description Elimina una Brigadista por su id
+ * @param req {Request}
+ * @param res {Response}
+ */
 async function deleteBrigadista(req, res) {
     try {
         const { id } = req.params;
