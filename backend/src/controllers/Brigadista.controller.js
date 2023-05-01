@@ -5,7 +5,7 @@ const { handleError } = require("../utils/errorHandler");
 
 /**
  * @name getBrigadistas
- * @description Obtiene todas las capacitaciones
+ * @description Obtiene todos los Brigadistas
  * @param req {Request}
  * @param res {Response}
  */
@@ -22,7 +22,7 @@ async function getBrigadistas(req, res) {
 
 /**
  * @name createBrigadista
- * @description Crea un nueva Brigadista
+ * @description Crea un nuevo Brigadista
  * @param req {Request}
  * @param res {Response}
  */
