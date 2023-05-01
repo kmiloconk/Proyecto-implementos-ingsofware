@@ -22,7 +22,7 @@ async function getBrigadistas(req, res) {
 
 /**
  * @name createBrigadista
- * @description Crea una nueva capacitacion
+ * @description Crea un nueva Brigadista
  * @param req {Request}
  * @param res {Response}
  */
@@ -47,7 +47,7 @@ async function createBrigadista(req, res) {
 
 /**
  * @name getBrigadistaById
- * @description Obtiene una Brigadista por su id
+ * @description Obtiene un Brigadista por su id
  * @param req {Request}
  * @param res {Response}
  */
@@ -73,7 +73,7 @@ async function getBrigadistaById(req, res) {
 
 /**
  * @name updateBrigadista
- * @description Actualiza una Brigadista por su id
+ * @description Actualiza un Brigadista por su id
  * @param req {Request}
  * @param res {Response}
  */
@@ -99,7 +99,7 @@ async function updateBrigadista(req, res) {
 
 /**
  * @name deleteBrigadista
- * @description Elimina una Brigadista por su id
+ * @description Elimina un Brigadista por su id
  * @param req {Request}
  * @param res {Response}
  */
