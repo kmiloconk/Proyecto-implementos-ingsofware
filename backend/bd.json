@@ -4,33 +4,21 @@
             "type":"String",
             "required":true
         },
-
         "email":{
             "type": "String",
             "required": true,
             "unique": true
-        }
-    },
-    "Posee":{
-        "brigadista":{
-            "type":"Schema.ObjectID",
-            "ref":"Brigadista"
         },
-        "capacitacion":{
-            "type":"Schema.ObjectID",
-            "ref":"capacitacion"
-        }
-    },
-    "asigna":{
-        "brigadista":{
-            "type":"Schema.ObjectID",
-            "ref":"Brigadista"
-        },
-        "implemento":{
+        "implemento":[{
             "type":"Schema.ObjectID",
             "ref":"Implemento"
-        }
+        }],
+        "capacitacion":[{
+            "type":"Schema.ObjectID",
+            "ref":"Capacitacion"
+        }]
     },
+
     "Encargado":{
         "nombre":{
             "type":"String",
@@ -42,6 +30,7 @@
             "unique": true
         }
     },
+
     "modifica":{
         "encargado":{
             "type":"Schema.ObjectID",
@@ -52,10 +41,11 @@
             "ref":"Implemento"
         }
     },
+
     "Implemento":{
-        "nombre":{
-            "type":"String",
-            "required":true
+        "tipo":{
+            "type":"Schema.ObjectID",
+            "ref":"tipo"
         },
         "estado":{
             "type":"Schema.ObjectID",
@@ -70,17 +60,33 @@
             "ref":"categoria"
         }
     },
-    "categoria":{
-        "type":"String",
-        "required":true
+
+    "tipo":{
+        "nombre":{
+            "type":"String",
+            "required":true
+        }
     },
-    "estado":{
-        "type":"String",
-        "required":true
+
+    "Categoria":{
+        "nombre":{
+            "type":"String",
+            "required":true
+        }
     },
-    "capacitacion":{
-        "type":"String",
-        "required":true
+
+    "Estado":{
+        "nombre":{
+            "type":"String",
+            "required":true
+        }
+    },
+
+    "Capacitacion":{
+        "nombre":{
+            "type":"String",
+            "required":true
+        }
     }
 
 }
