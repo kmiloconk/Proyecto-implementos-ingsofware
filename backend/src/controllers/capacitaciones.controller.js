@@ -4,12 +4,7 @@ const { respondSuccess, respondError } = require("../utils/resHandler");
 //const UserService = require("../services/user.service");
 const { handleError } = require("../utils/errorHandler");
 
-/**
- * @name getCapacitaciones
- * @description Obtiene todas las capacitaciones
- * @param req {Request}
- * @param res {Response}
- */
+
 async function getCapacitaciones(req, res) {
   try {
     const capacitaciones = await CapacitacionesService.getCapacitaciones();
@@ -21,12 +16,7 @@ async function getCapacitaciones(req, res) {
   }
 }
 
-/**
- * @name createCapacitacion
- * @description Crea una nueva capacitacion
- * @param req {Request}
- * @param res {Response}
- */
+
 async function createCapacitacion(req, res) {
   try {
     const nuevaCapacitacion = await CapacitacionService.createCapacitacion(req.body);
@@ -46,12 +36,7 @@ async function createCapacitacion(req, res) {
   }
 }
 
-/**
- * @name getCapacitacionById
- * @description Obtiene una capacitacion por su id
- * @param req {Request}
- * @param res {Response}
- */
+
 async function getCapacitacionById(req, res) {
   try {
     const { id } = req.params;
@@ -73,12 +58,7 @@ async function getCapacitacionById(req, res) {
   }
 }
 
-/**
- * @name updateCapacitacion
- * @description Actualiza una capacitacion por su id
- * @param req {Request}
- * @param res {Response}
- */
+
 async function updateCapacitacion(req, res) {
   try {
     const { id } = req.params;
@@ -99,12 +79,7 @@ async function updateCapacitacion(req, res) {
   }
 }
 
-/**
- * @name deleteCapacitacion
- * @description Elimina una capacitacion por su id
- * @param req {Request}
- * @param res {Response}
- */
+
 async function deleteCapacitacion(req, res) {
   try {
     const { id } = req.params;
