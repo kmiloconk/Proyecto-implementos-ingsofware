@@ -1,5 +1,3 @@
-"use strict";
-
 const mongoose = require("mongoose");
 
 const implementSchema = new mongoose.Schema({
@@ -18,10 +16,6 @@ const implementSchema = new mongoose.Schema({
   category: {
     type: String,
     required: true,
-  },
-  brigadist: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'brigadista'
   },
 });
 
