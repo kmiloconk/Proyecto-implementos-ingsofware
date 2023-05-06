@@ -1,5 +1,5 @@
 {
-    "Brigadista":{
+    "Usuario":{
         "nombre":{
             "type":"String",
             "required":true
@@ -16,29 +16,17 @@
         "capacitacion":[{
             "type":"Schema.ObjectID",
             "ref":"Capacitacion"
-        }]
-    },
-
-    "Encargado":{
-        "nombre":{
-            "type":"String",
-            "required":true
-        },
-        "email":{
-            "type": "String",
-            "required": true,
-            "unique": true
+        }],
+        "rol":{
+            "type":"Schema.ObjectID",
+            "ref":"Rol"
         }
     },
 
-    "modifica":{
-        "encargado":{
-            "type":"Schema.ObjectID",
-            "ref":"Encargado"
-        },
-        "implemento":{
-            "type":"Schema.ObjectID",
-            "ref":"Implemento"
+    "Rol":{
+        "nombre":{
+            "type":"String",
+            "required":true
         }
     },
 

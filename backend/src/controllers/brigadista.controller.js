@@ -2,6 +2,7 @@ const { respondSuccess, respondError } = require("../utils/resHandler");
 const BrigadistaService = require("../services/brigadista.service");
 const { handleError } = require("../utils/errorHandler");
 
+
 async function getBrigadistas(req, res) {
     try {
         const brigadistas = await BrigadistaService.getBrigadistas();
@@ -33,7 +34,6 @@ async function createBrigadista(req, res) {
     }
 }
 
-
 async function getBrigadistaById(req, res) {
     try {
         const { id } = req.params;
@@ -50,10 +50,16 @@ async function getBrigadistaById(req, res) {
         : respondSuccess(req, res, 200, user);
     } catch (error) {
         handleError(error, "user.controller -> getUserById");
-        respondError(req, res, 500, "No se pudo obtener al brihadista");
+        respondError(req, res, 500, "No se pudo obtener al brigadista");
     }
 }
 
+/**
+ * @name updateBrigadista
+ * @description Actualiza un Brigadista por su id
+ * @param req {Request}
+ * @param res {Response}
+ */
 async function updateBrigadista(req, res) {
     try {
         const { id } = req.params;
@@ -74,6 +80,12 @@ async function updateBrigadista(req, res) {
     }
 }
 
+/**
+ * @name deleteBrigadista
+ * @description Elimina un Brigadista por su id
+ * @param req {Request}
+ * @param res {Response}
+ */
 async function deleteBrigadista(req, res) {
     try {
         const { id } = req.params;
