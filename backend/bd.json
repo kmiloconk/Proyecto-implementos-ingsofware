@@ -1,0 +1,80 @@
+{
+    "Usuario":{
+        "nombre":{
+            "type":"String",
+            "required":true
+        },
+        "email":{
+            "type": "String",
+            "required": true,
+            "unique": true
+        },
+        "implemento":[{
+            "type":"Schema.ObjectID",
+            "ref":"Implemento"
+        }],
+        "capacitacion":[{
+            "type":"Schema.ObjectID",
+            "ref":"Capacitacion"
+        }],
+        "rol":{
+            "type":"Schema.ObjectID",
+            "ref":"Rol"
+        }
+    },
+
+    "Rol":{
+        "nombre":{
+            "type":"String",
+            "required":true
+        }
+    },
+
+    "Implemento":{
+        "tipo":{
+            "type":"Schema.ObjectID",
+            "ref":"tipo"
+        },
+        "estado":{
+            "type":"Schema.ObjectID",
+            "ref":"estado"
+        },
+        "fecha de vencimiento":{
+            "type": "date",
+            "required":true
+        },
+        "categoria":{
+            "type":"Schema.ObjectID",
+            "ref":"categoria"
+        }
+    },
+
+    "tipo":{
+        "nombre":{
+            "type":"String",
+            "required":true
+        }
+    },
+
+    "Categoria":{
+        "nombre":{
+            "type":"String",
+            "required":true
+        }
+    },
+
+    "Estado":{
+        "nombre":{
+            "type":"String",
+            "required":true
+        }
+    },
+
+    "Capacitacion":{
+        "nombre":{
+            "type":"String",
+            "required":true
+        }
+    }
+
+}

@@ -1,134 +1,107 @@
-"use strict";
-
 const { respondSuccess, respondError } = require("../utils/resHandler");
-//const UserService = require("../services/user.service");
+const ImplementService = require("../services/Implemento.service");
 const { handleError } = require("../utils/errorHandler");
 
-/**
- * @name getImplementos
- * @description Obtiene todas las Implementos
- * @param req {Request}
- * @param res {Response}
- */
-async function getImplementos(req, res) {
+
+async function getImplements(req, res) {
   try {
-    const Implementos = await CapacitacionesService.getImplementos();
-    Implementos.length === 0
+    const implementos = await ImplementService.getImplements();
+    implementos.length === 0
       ? respondSuccess(req, res, 204)
-      : respondSuccess(req, res, 200, Implementos);
+      : respondSuccess(req, res, 200, implementos);
   } catch (error) {
     respondError(req, res, 400, error.message);
   }
 }
 
-/**
- * @name createImplementos
- * @description Crea un nuevo Implemento
- * @param req {Request}
- * @param res {Response}
- */
-async function createImplementos(req, res) {
+
+async function createImplement(req, res) {
   try {
-    const nuevoImplemento = await implementosService.createImplementos(req.body);
-    nuevoImplemento === null
+    const nuevoImplement = await ImplementService.createImplement(req.body);
+    nuevoImplement === null
       ? respondError(
           req,
           res,
           400,
-          "Error en el validacion de datos",
+          "Error en la validacion de datos",
           "Bad Request",
           { message: "Verifique los datos ingresados" },
         )
-      : respondSuccess(req, res, 201, nuevoImplemento);
+      : respondSuccess(req, res, 201, nuevoImplement);
   } catch (error) {
-    handleError(error, "Implementos.controller -> createImplementos");
-    respondError(req, res, 500, "No se pudo crear el capacitación");
+    handleError(error, "implement.controller -> createImplement");
+    respondError(req, res, 500, "No se pudo crear el implemento");
   }
 }
 
-/**
- * @name getImplementosById
- * @description Obtiene un Implemento por su id
- * @param req {Request}
- * @param res {Response}
- */
-async function getImplementosById(req, res) {
+
+async function getImplementById(req, res) {
   try {
     const { id } = req.params;
 
-    const Implemento = await implementosService.getImplementosById(id);
-    Implemento === null
+    const implement = await ImplementService.getImplementById(id);
+    implement === null
       ? respondError(
           req,
           res,
           404,
-          "No se encontro el Implemento solicitado",
+          "No se encontro el implemento solicitado",
           "Not Found",
           { message: "Verifique el id ingresado" },
         )
-      : respondSuccess(req, res, 200, user);
+      : respondSuccess(req, res, 200, implement);
   } catch (error) {
-    handleError(error, "Implemento.controller -> getImplementos");
-    respondError(req, res, 500, "No se pudo obtener el Implemento");
+    handleError(error, "implement.controller -> getImplementById");
+    respondError(req, res, 500, "No se pudo obtener el implemento");
   }
 }
 
-/**
- * @name updateImplementos
- * @description Actualiza un Implemento por su id
- * @param req {Request}
- * @param res {Response}
- */
-async function updateImplementos(req, res) {
+
+async function updateImplement(req, res) {
   try {
     const { id } = req.params;
-    const Implemento = await implementosService.updateImplementos(id, req.body);
-    Implemento === null
+    const implement = await ImplementService.updateImplement(id, req.body);
+    implement === null
       ? respondError(
           req,
           res,
           404,
-          "No se encontro el Implemento solicitado",
+          "No se encontro el implemento solicitado",
           "Not Found",
           { message: "Verifique el id ingresado" },
         )
-      : respondSuccess(req, res, 200, user);
+      : respondSuccess(req, res, 200, implement);
   } catch (error) {
-    handleError(error, "Implementos.controller -> updateImplementos");
-    respondError(req, res, 500, "No se pudo actualizar el Implemento");
+    handleError(error, "implement.controller -> updateImplement");
+    respondError(req, res, 500, "No se pudo actualizar el implemento");
   }
 }
 
-/**
- * @name deleteImplementos
- * @description Elimina un Implemento por su id
- * @param req {Request}
- * @param res {Response}
- */
-async function deleteImplementos(req, res) {
+
+async function deleteImplement(req, res) {
   try {
     const { id } = req.params;
-    const Implemento = await implementosService.deleteImplementos(id);
-    Implemento === null
+    const implement = await ImplementService.deleteImplement(id);
+    implement === null
       ? respondError(
           req,
           res,
           404,
-          "No se encontro el Implemento solicitado",
+          "No se encontro el usuario solicitado",
           "Not Found",
           { message: "Verifique el id ingresado" },
         )
-      : respondSuccess(req, res, 200, user);
+      : respondSuccess(req, res, 200, implement);
   } catch (error) {
-    handleError(error, "Implementos.controller -> deleteImplementos");
-    respondError(req, res, 500, "No se pudo eliminar el Implemento");
+    handleError(error, "implement.controller -> deleteImplement");
+    respondError(req, res, 500, "No se pudo eliminar el implemento");
   }
 }
 
 module.exports = {
-  getImplementos,
-  createImplementos,
-  getImplementosById,
-  updateImplementos,
-  deleteImplementos,
+  getImplements,
+  createImplement,
+  getImplementById,
+  updateImplement,
+  deleteImplement,
 };
