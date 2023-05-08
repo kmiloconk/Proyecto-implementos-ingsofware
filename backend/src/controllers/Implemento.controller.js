@@ -1,11 +1,11 @@
 const { respondSuccess, respondError } = require("../utils/resHandler");
-const ImplementService = require("../services/Implemento.service");
+const ImplementoService = require("../services/Implemento.service");
 const { handleError } = require("../utils/errorHandler");
 
 
-async function getImplements(req, res) {
+async function getImplementos(req, res) {
   try {
-    const implementos = await ImplementService.getImplements();
+    const implementos = await ImplementoService.getImplementos();
     implementos.length === 0
       ? respondSuccess(req, res, 204)
       : respondSuccess(req, res, 200, implementos);
@@ -15,10 +15,10 @@ async function getImplements(req, res) {
 }
 
 
-async function createImplement(req, res) {
+async function createImplemento(req, res) {
   try {
-    const nuevoImplement = await ImplementService.createImplement(req.body);
-    nuevoImplement === null
+    const nuevoImplemento = await ImplementoService.createImplemento(req.body);
+    nuevoImplemento === null
       ? respondError(
           req,
           res,
@@ -27,20 +27,20 @@ async function createImplement(req, res) {
           "Bad Request",
           { message: "Verifique los datos ingresados" },
         )
-      : respondSuccess(req, res, 201, nuevoImplement);
+      : respondSuccess(req, res, 201, nuevoImplemento);
   } catch (error) {
-    handleError(error, "implement.controller -> createImplement");
+    handleError(error, "implemento.controller -> createImplemento");
     respondError(req, res, 500, "No se pudo crear el implemento");
   }
 }
 
 
-async function getImplementById(req, res) {
+async function getImplementoById(req, res) {
   try {
     const { id } = req.params;
 
-    const implement = await ImplementService.getImplementById(id);
-    implement === null
+    const implemento = await ImplementoService.getImplementoById(id);
+    implemento === null
       ? respondError(
           req,
           res,
@@ -49,19 +49,19 @@ async function getImplementById(req, res) {
           "Not Found",
           { message: "Verifique el id ingresado" },
         )
-      : respondSuccess(req, res, 200, implement);
+      : respondSuccess(req, res, 200, implemento);
   } catch (error) {
-    handleError(error, "implement.controller -> getImplementById");
+    handleError(error, "implemento.controller -> getImplementoById");
     respondError(req, res, 500, "No se pudo obtener el implemento");
   }
 }
 
 
-async function updateImplement(req, res) {
+async function updateImplemento(req, res) {
   try {
     const { id } = req.params;
-    const implement = await ImplementService.updateImplement(id, req.body);
-    implement === null
+    const implemento = await ImplementoService.updateImplemento(id, req.body);
+    implemento === null
       ? respondError(
           req,
           res,
@@ -70,19 +70,19 @@ async function updateImplement(req, res) {
           "Not Found",
           { message: "Verifique el id ingresado" },
         )
-      : respondSuccess(req, res, 200, implement);
+      : respondSuccess(req, res, 200, implemento);
   } catch (error) {
-    handleError(error, "implement.controller -> updateImplement");
+    handleError(error, "implemento.controller -> updateImplemento");
     respondError(req, res, 500, "No se pudo actualizar el implemento");
   }
 }
 
 
-async function deleteImplement(req, res) {
+async function deleteImplemento(req, res) {
   try {
     const { id } = req.params;
-    const implement = await ImplementService.deleteImplement(id);
-    implement === null
+    const implemento = await ImplementoService.deleteImplemento(id);
+    implemento === null
       ? respondError(
           req,
           res,
@@ -91,17 +91,17 @@ async function deleteImplement(req, res) {
           "Not Found",
           { message: "Verifique el id ingresado" },
         )
-      : respondSuccess(req, res, 200, implement);
+      : respondSuccess(req, res, 200, implemento);
   } catch (error) {
-    handleError(error, "implement.controller -> deleteImplement");
+    handleError(error, "implemento.controller -> deleteImplemento");
     respondError(req, res, 500, "No se pudo eliminar el implemento");
   }
 }
 
 module.exports = {
-  getImplements,
-  createImplement,
-  getImplementById,
-  updateImplement,
-  deleteImplement,
+  getImplementos,
+  createImplemento,
+  getImplementoById,
+  updateImplemento,
+  deleteImplemento,
 };
