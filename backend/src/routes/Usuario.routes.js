@@ -5,9 +5,9 @@ const authoMiddleware = require("../middlewares/autho.middleware.js");
 const router = express.Router();
 
 router.get("/", usuarioController.getUsuarios);
-router.post("/", authoMiddleware.isAdmin, usuarioController.createUsuario);
+router.post("/", authoMiddleware.isEncargado, usuarioController.createUsuario);
 router.get("/:id", usuarioController.getUsuarioById);
-router.put("/:id", authoMiddleware.isAdmin, usuarioController.updateUsuario);
-router.delete("/:id", authoMiddleware.isAdmin, usuarioController.deleteUsuario);
+router.put("/:id", authoMiddleware.isEncargado, usuarioController.updateUsuario);
+router.delete("/:id", authoMiddleware.isEncargado, usuarioController.deleteUsuario);
 
 module.exports = router;
