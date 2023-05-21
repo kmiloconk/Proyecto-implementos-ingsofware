@@ -26,7 +26,7 @@ async function isEncargado(req, res, next) {
 
 async function isBrigadista(req, res, next) {
   try {
-    console.log(req.usuarioId)
+    console.log(req.userId)
     const usuario = await Usuario.findById(req.userId);
     if (!usuario) {
       return respondError(req, res, 401, "Brigadista no encontrado!");

@@ -11,6 +11,7 @@ const authRoutes = require("./auth.routes.js");
 const authMiddleware = require("../middlewares/authe.middleware.js");
 const tipoRoutes = require('./tipo.routes');
 const implemento = require('./Implemento.routes');
+const notificacion = require('./Notificacion.routes');
 
 // Crea una instancia del enrutador
 const router = express.Router();
@@ -19,7 +20,7 @@ const router = express.Router();
 router.use("/Usuario",  usuarioRoutes);
 // Define las rutas para la autenticación /api/auth
 router.use("/auth", authRoutes);
-
+router.use('/Notificacion', notificacion);
 router.use("/Estado", estadoRoutes);
 router.use('/Tipo', tipoRoutes);
 router.use('/Implemento', implemento);

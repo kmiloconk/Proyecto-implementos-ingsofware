@@ -58,7 +58,7 @@ async function setupAPI() {
     await createRoles();
     await verRoles();
     //Inicia la creación del usuario admin y user
-    await deleteAllUsers();
+    //await deleteAllUsers();
     await createUsers();
     await showUsers();
   } catch (err) {
