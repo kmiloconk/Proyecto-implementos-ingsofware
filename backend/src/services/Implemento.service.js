@@ -13,8 +13,8 @@ async function getImplementos() {
 
 async function createImplemento(implemento) {
     try {
-    const { error } = implementoBodySchema.validate(implemento);
-    if (error) return null;
+    //const { error } = implementoBodySchema.validate(implemento);
+    //if (error) return null;
     const { tipo, estado, fechaVencimiento, categoria} = implemento;
 
     const newImplemento = new Implemento({ tipo, estado, fechaVencimiento, categoria });

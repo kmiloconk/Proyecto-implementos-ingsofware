@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 
-const ROLES = ["Brigadista", "Encargado"];
+//const ROLES = ["Brigadista", "Encargado"];
 
 const rolSchema = new mongoose.Schema({
-    name: {
+    nombre: {
         type: String,
-        enum: ROLES,
+        //enum: ROLES,
         required: true,
     },
 });

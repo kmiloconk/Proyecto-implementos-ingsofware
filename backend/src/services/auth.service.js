@@ -53,11 +53,11 @@ const { JWT_SECRET } = configEnv();
 async function signIn(usuario) {
   try {
     const usuarioFound = await Usuario.findOne({ email: usuario.email }).populate(
-      "roles",
+      "rol",
     );
     if (!usuarioFound) return null;
 
-    return jwt.sign({ id: ussuarioFound._id }, JWT_SECRET, {
+    return jwt.sign({ id: usuarioFound._id }, JWT_SECRET, {
       expiresIn: 86400, // 24 horas
     });
   } catch (error) {

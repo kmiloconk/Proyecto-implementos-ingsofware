@@ -11,13 +11,13 @@ async function getEstado() {
 }
 
 
-async function createEstado(Estado) {
+async function createEstado(estado) {
     try {
-    const { error } = EstadoBodySchema.validate(Estado);
+    const { error } = EstadoBodySchema.validate(estado);
     if (error) return null;
-    const { name } = Estado;
+    const { nombre } = estado;
 
-    const newEstado = new Estado({ name });
+    const newEstado = new Estado({ nombre });
     return await newEstado.save();
     } catch (error) {
         handleError(error, "Estado.service -> createEstado");
@@ -53,9 +53,9 @@ async function deleteEstado(id) {
 }
 
 module.exports = {
-  getEstado,
-  createEstado,
-  getEstadoById,
-  updateEstado,
-  deleteEstado,
+    getEstado,
+    createEstado,
+    getEstadoById,
+    updateEstado,
+    deleteEstado,
 };
