@@ -40,23 +40,16 @@ async function getImplementoById(req, res) {
     const { id } = req.params;
 
     const implemento = await ImplementoService.getImplementoById(id);
-    if (implemento === null) {
-      respondError(
-        req,
-        res,
-        404,
-        "No se encontro el implemento solicitado",
-        "Not Found",
-        { message: "Verifique el id ingresado" },
-      );
-    } else {
-      const implementoConEstadoYVencimiento = {
-        ...implemento,
-        estado: obtenerEstadoImplemento(implemento),
-        fechaVencimiento: obtenerFechaVencimientoImplemento(implemento),
-      };
-      respondSuccess(req, res, 200, implementoConEstadoYVencimiento);
-    }
+    implemento === null
+      ? respondError(
+          req,
+          res,
+          404,
+          "No se encontro el implemento solicitado",
+          "Not Found",
+          { message: "Verifique el id ingresado" },
+        )
+      : respondSuccess(req, res, 200, implemento);
   } catch (error) {
     handleError(error, "implemento.controller -> getImplementoById");
     respondError(req, res, 500, "No se pudo obtener el implemento");
@@ -102,23 +95,6 @@ async function deleteImplemento(req, res) {
   } catch (error) {
     handleError(error, "implemento.controller -> deleteImplemento");
     respondError(req, res, 500, "No se pudo eliminar el implemento");
-  }
-}
-
-function obtenerFechaVencimientoImplemento(implemento) {
-  const fechaActual = new Date();
-  
-  const fechaVencimiento = new Date(implemento.fechaVencimiento);
-  
-  if (fechaVencimiento < fechaActual) {
-    return "Vencido";
-
-  } else if (fechaVencimiento.toDateString() === fechaActual.toDateString()) {
-    return "Vence hoy";
-
-  } else {
-    return "Activo";
-    
   }
 }
 
