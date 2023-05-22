@@ -1,21 +1,15 @@
 "use strict";
-// Importa el modulo 'express' para crear las rutas
 const express = require("express");
 
-// Importa el controlador de usuarios
-const usuarioController = require("../controllers/Usuario.controller.js");
-// Importa el middleware de autorización
-const authoMiddleware = require("../middlewares/autho.middleware.js");
+const usuarioController = require("../controllers/user.controller");
+const autheMiddleware = require("../middlewares/authe.middleware");
 
-// Crea una instancia del enrutador
 const router = express.Router();
 
-// Define las rutas para los usuarios
 router.get("/", usuarioController.getUsers);
-router.post("/", authoMiddleware.isAdmin, usuarioController.createUser);
+router.post("/", autheMiddleware.isAdmin, usuarioController.createUser);
 router.get("/:id", usuarioController.getUserById);
-router.put("/:id", authoMiddleware.isAdmin, usuarioController.updateUser);
-router.delete("/:id", authoMiddleware.isAdmin, usuarioController.deleteUser);
+router.put("/:id", autheMiddleware.isAdmin, usuarioController.updateUser);
+router.delete("/:id", autheMiddleware.isAdmin, usuarioController.deleteUser);
 
-// Exporta el enrutador
 module.exports = router;

@@ -5,7 +5,7 @@ const { handleError } = require("../utils/errorHandler");
 
 const { JWT_SECRET } = configEnv();
 const User = require("../models/user.model.js");
-const Role = require("../models/role.model.js");
+const Role = require("../models/Rol.model.js");
 const { respondError } = require("../utils/resHandler");
 
 // Autenticacion - Verificamos si el token es valido

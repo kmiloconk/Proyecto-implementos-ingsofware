@@ -1,6 +1,6 @@
 // Servicio creado para manejar la autenticación de usuarios
 const User = require("../models/user.model.js");
-const Role = require("../models/role.model.js");
+const Role = require("../models/Rol.model.js");
 
 const jwt = require("jsonwebtoken");
 const { configEnv } = require("../config/configEnv.js");

@@ -5,8 +5,6 @@ const Capacitacion = require("../models/Capacitacion.model");
 const { handleError } = require("../utils/errorHandler");
 const { userBodySchema } = require("../schema/user.schema");
 
-users
-user
 async function getusers() {
     try {
         return await users.find();
