@@ -1,5 +1,5 @@
 const { respondSuccess, respondError } = require("../utils/resHandler");
-const UsuarioService = require("../services/Usiario.service");
+const UsuarioService = require("../services/Usuario.service");
 const { handleError } = require("../utils/errorHandler");
 
 
