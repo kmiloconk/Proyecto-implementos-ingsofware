@@ -1,6 +1,6 @@
 // Importa el modelo de datos 'Role'
-const Role = require("../models/role.model.js");
-const User = require("../models/user.model.js");
+const Rol = require("../models/Rol.model");
+const Usuario = require("../models/Usuario.model");
 
 /**
  * @name createRoles
@@ -10,13 +10,13 @@ const User = require("../models/user.model.js");
 async function createRoles() {
   try {
     // Busca todos los roles en la base de datos
-    const count = await Role.estimatedDocumentCount();
+    const count = await Rol.estimatedDocumentCount();
     // Si no hay roles en la base de datos los crea
     if (count > 0) return;
 
     await Promise.all([
-      new Role({ name: "user" }).save(),
-      new Role({ name: "admin" }).save(),
+      new Rol({ name: "Brigradista" }).save(),
+      new Rol({ name: "Encargado" }).save(),
     ]);
     console.log("* => Roles creados exitosamente");
   } catch (error) {
@@ -31,25 +31,25 @@ async function createRoles() {
  */
 async function createUsers() {
   try {
-    const count = await User.estimatedDocumentCount();
+    const count = await Usuario.estimatedDocumentCount();
     if (count > 0) return;
 
-    const admin = await Role.findOne({ name: "admin" });
-    const user = await Role.findOne({ name: "user" });
+    const encargado = await Rol.findOne({ name: "Encargado" });
+    const brigadista = await Rol.findOne({ name: "Brigadista" });
 
     await Promise.all([
-      new User({
-        name: "user",
-        email: "user@email.com",
-        roles: user._id,
+      new Usuario({
+        name: "Brigadista",
+        email: "Brigadista@email.com",
+        roles: brigadista._id,
       }).save(),
-      new User({
-        name: "admin",
-        email: "admin@email.com",
-        roles: admin._id,
+      new Usuario({
+        name: "Encargado",
+        email: "Encargado@email.com",
+        roles: encargado._id,
       }).save(),
     ]);
-    console.log("* => Users creados exitosamente");
+    console.log("* => Usuario creados exitosamente");
   } catch (error) {
     console.error(error);
   }
