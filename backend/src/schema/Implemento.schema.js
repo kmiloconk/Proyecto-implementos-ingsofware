@@ -1,17 +1,16 @@
 const Joi = require("joi");
 
-const name = Joi.string().min(3).max(30).required();
-const state = Joi.ObjectId.required(); // duda
-const expirationDate = Joi.date().min(3).max(30).required();
-const category = Joi.string().min(3).max(30).required();
-const brigadist = Joi.ObjectId.required(); // duda
+const tipo = Joi.array().min(1).items(Joi.string().valid("admin", "user")).required();
+const estado = Joi.array().min(1).items(Joi.string().valid("admin", "user")).required();
+const fehaVencimiento = Joi.date().min(3).max(30).required();
+const categoria = Joi.array().min(1).items(Joi.string().valid("admin", "user")).required();
 
-const implementBodySchema = Joi.object({
-    name,
-    state,
-    expirationDate,
-    category,
-    brigadist,
+
+const implementoBodySchema = Joi.object({
+    tipo,
+    estado,
+    fehaVencimiento,
+    categoria,
 });
 
-module.exports = { implementBodySchema };
+module.exports = { implementoBodySchema };

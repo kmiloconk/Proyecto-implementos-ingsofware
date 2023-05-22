@@ -1,61 +1,61 @@
-const Implement = require("../models/Implemento.model");
+const Implemento = require("../models/Implemento.model");
 const { handleError } = require("../utils/errorHandler");
-const { implementBodySchema } = require("../schema/Implemento.schema");
+const { implementoBodySchema } = require("../schema/Implemento.schema");
 
-async function getImplements() {
+async function getImplementos() {
     try {
-        return await Implement.find();
+        return await Implemento.find();
     } catch (error) {
-        handleError(error, "implement.service -> getImplements");
+        handleError(error, "Implemento.service -> getImplementos");
     }
 }
 
 
-async function createImplement(implement) {
+async function createImplemento(implemento) {
     try {
-    const { error } = implementBodySchema.validate(implement);
+    const { error } = implementoBodySchema.validate(implemento);
     if (error) return null;
-    const { name, state, expirationDate, category, brigadist } = implement;
+    const { tipo, estado, fechaVencimiento, categoria} = implemento;
 
-    const newImplement = new Implement({ name, state, expirationDate, category, brigadist });
-    return await newImplement.save();
+    const newImplemento = new Implemento({ tipo, estado, fechaVencimiento, categoria });
+    return await newImplemento.save();
     } catch (error) {
-        handleError(error, "implement.service -> createImplement");
+        handleError(error, "implemento.service -> createImplemento");
     }
 }
 
-async function getImplementById(id) {
+async function getImplementoById(id) {
     try {
-        return await Implement.findById({ _id: id });
+        return await Implemento.findById({ _id: id });
     } catch (error) {
-        handleError(error, "implement.service -> getImplementById");
+        handleError(error, "implemento.service -> getImplementoById");
     }
 }
 
 
-async function updateImplement(id, implement) {
+async function updateImplemento(id, implemento) {
     try {
-        const { error } = implementBodySchema.validate(implement);
+        const { error } = implementoBodySchema.validate(implemento);
         if (error) return null;
 
-        return await Implement.findByIdAndUpdate(id, implement);
+        return await Implemento.findByIdAndUpdate(id, implemento);
     } catch (error) {
-        handleError(error, "implement.service -> updateImplement");
+        handleError(error, "implemento.service -> updateImplemento");
     }
 }
 
-async function deleteImplement(id) {
+async function deleteImplemento(id) {
     try {
-        return await Implement.findByIdAndDelete(id);
+        return await Implemento.findByIdAndDelete(id);
     } catch (error) {
-        handleError(error, "implement.service -> deleteImplement");
+        handleError(error, "implemento.service -> deleteImplemento");
     }
 }
 
 module.exports = {
-  getImplements,
-  createImplement,
-  getImplementById,
-  updateImplement,
-  deleteImplement,
+  getImplementos,
+  createImplemento,
+  getImplementoById,
+  updateImplemento,
+  deleteImplemento,
 };
