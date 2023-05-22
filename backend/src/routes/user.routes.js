@@ -3,7 +3,7 @@
 const express = require("express");
 
 // Importa el controlador de usuarios
-const usuarioController = require("../controllers/user.controller.js");
+const usuarioController = require("../controllers/Usuario.controller.js");
 // Importa el middleware de autorización
 const authoMiddleware = require("../middlewares/autho.middleware.js");
 
