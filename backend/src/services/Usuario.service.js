@@ -1,7 +1,4 @@
 const Usuario = require("../models/Usuario.model");
-const Rol = require("../models/Rol.model");
-const Implemento = require("../models/Implemento.model");
-const Capacitacion = require("../models/Capacitacion.model");
 const { handleError } = require("../utils/errorHandler");
 const { usuarioBodySchema } = require("../schema/Usuario.schema");
 
@@ -15,7 +12,7 @@ async function getUsuarios() {
                 path: 'tipo',
                 select: 'nombre',
             },
-        });
+        }).populate('capacitacion')
     } catch (error) {
         handleError(error, "Usuario.service -> getUsuarios");
     }

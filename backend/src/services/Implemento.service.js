@@ -4,7 +4,7 @@ const { implementoBodySchema } = require("../schema/Implemento.schema");
 
 async function getImplementos() {
     try {
-        return await Implemento.find().populate('tipo').populate('estado');
+        return await Implemento.find().populate('tipo').populate('estado').populate('categoria');
     } catch (error) {
         handleError(error, "Implemento.service -> getImplementos");
     }

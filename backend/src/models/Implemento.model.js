@@ -1,18 +1,14 @@
 const mongoose = require("mongoose");
 
 const implementoSchema = new mongoose.Schema({
-  tipo:[
-    {
+  tipo:{
         type: mongoose.Schema.Types.ObjectId,
         ref:"Tipo"
-    }
-],
-  estado:[
-    {
+},
+  estado:{
         type: mongoose.Schema.Types.ObjectId,
         ref:"Estado"
-    }
-],
+},
   fechaVencimiento: {
   type: Date,
   required: true,

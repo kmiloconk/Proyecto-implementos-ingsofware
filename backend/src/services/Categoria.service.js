@@ -15,9 +15,9 @@ async function createCategoria(categoria) {
     try {
     const { error } = CategoriaBodySchema.validate(categoria);
     if (error) return null;
-    const { name, state, expirationDate, category, brigadist } = categoria;
+    const { nombre } = categoria;
 
-    const newCategoria = new Categoria({ name, state, expirationDate, category, brigadist });
+    const newCategoria = new Categoria({ nombre });
     return await newCategoria.save();
     } catch (error) {
         handleError(error, "categoria.service -> createCategoria");

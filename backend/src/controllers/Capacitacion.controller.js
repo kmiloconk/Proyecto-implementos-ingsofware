@@ -1,10 +1,11 @@
 const { respondSuccess, respondError } = require("../utils/resHandler");
 const { handleError } = require("../utils/errorHandler");
+const CapacitacionService = require('../services/Capacitacion.service');
 
 
 async function getCapacitacion(req, res) {
   try {
-    const capacitacion = await CapacitacionesService.getCapacitacion();
+    const capacitacion = await CapacitacionService.getCapacitacion();
     capacitacion.length === 0
       ? respondSuccess(req, res, 204)
       : respondSuccess(req, res, 200, capacitacion);
@@ -37,7 +38,7 @@ async function getCapacitacionById(req, res) {
   try {
     const { id } = req.params;
 
-    const capacitacion = await capacitacionService.getCapacitacionById(id);
+    const capacitacion = await CapacitacionService.getCapacitacionById(id);
     capacitacion === null
       ? respondError(
           req,

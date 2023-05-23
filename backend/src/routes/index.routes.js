@@ -21,7 +21,7 @@ router.use("/Estado",authMiddleware.verifyToken, estadoRoutes);
 router.use('/Tipo', authMiddleware.verifyToken,tipoRoutes);
 router.use('/Implemento',authMiddleware.verifyToken, implemento);
 router.use('/Categoria', authMiddleware.verifyToken,categoria);
-router.use("/mantenimiento", authMiddleware.verifyToken, mantenimientoRoutes);
-router.use('./Capacitacion', authMiddleware.verifyToken, capacitaciones);
+router.use("/Mantenimiento", authMiddleware.verifyToken, mantenimientoRoutes);
+router.use('/Capacitacion', authMiddleware.verifyToken, capacitaciones);
 
 module.exports = router;

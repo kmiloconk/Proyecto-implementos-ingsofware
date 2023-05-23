@@ -125,62 +125,12 @@ async function showUsers() {
   }
 }
 
-async function createCapacitaciones() {
-  try {
-    const count = await Capacitacion.estimatedDocumentCount();
-    if (count > 0) return;
-
-    await Promise.all([
-      new Capacitacion({ nombre: "Manejo de extintores" }).save(),
-      new Capacitacion({ nombre: "Primeros auxilios" }).save(),
-      new Capacitacion({ nombre: "Evaluación de riesgos" }).save(),
-    ]);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-async function createTipos() {
-  try {
-    const count = await Tipo.estimatedDocumentCount();
-    if (count > 0) return;
-
-    await Promise.all([
-      new Tipo({ nombre: "Casco" }).save(),
-      new Tipo({ nombre: "Chaleco ignífugo" }).save(),
-      new Tipo({ nombre: "Mascarilla antigás" }).save(),
-      new Tipo({ nombre: "Botas de seguridad" }).save(),
-      new Tipo({ nombre: "Linterna resistente al agua" }).save(),
-    ]);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-async function createEstados() {
-  try {
-    const count = await Estado.estimatedDocumentCount();
-    if (count > 0) return;
-
-    await Promise.all([
-      new Estado({ nombre: "Perfecto" }).save(),
-      new Estado({ nombre: "Usado" }).save(),
-      new Estado({ nombre: "En Mantención" }).save(),
-      new Estado({ nombre: "Roto" }).save(),
-    ]);
-  } catch (error) {
-    console.error(error);
-  }
-}
 
 
 
 
 
 module.exports = {
-  createCapacitaciones,
-  createEstados,
-  createTipos,
   createRoles,
   createTiposMantenimientos,
   createUsers,

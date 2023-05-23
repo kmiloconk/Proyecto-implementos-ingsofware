@@ -1,7 +1,6 @@
 const { respondSuccess, respondError } = require("../utils/resHandler");
 const AuthServices = require("../services/auth.service");
 
-
 async function signIn(req, res) {
   try {
     const token = await AuthServices.signIn(req.body);
