@@ -1,22 +1,20 @@
 const Joi = require("joi");
 
-const tipos = Joi.array()
-  .min(1)
-  .items(Joi.string().valid("malo", "regular", "excelente"));
-const estados = Joi.array()
-  .min(1)
-  .items(Joi.string().valid("nuevo", "usado"));
+const tipo = Joi.string().min(1).required();
+const estado = Joi.string().min(1).required();
 const fechaVencimiento = Joi.string().min(3).max(30).required();
-const categorias = Joi.array()
-  .min(1)
-  .items(Joi.string().valid("pesado", "liviano", "estandar"));
+const categoria = Joi.string().min(1).required();
+const solicitadoPorBrigadista = Joi.boolean().required()
+
 
 
 const implementoBodySchema = Joi.object({
-    tipos,
-    estados,
+    tipo,
+    estado,
     fechaVencimiento,
-    categorias,
+    categoria,
+    solicitadoPorBrigadista,
 });
 
 module.exports = { implementoBodySchema };
+

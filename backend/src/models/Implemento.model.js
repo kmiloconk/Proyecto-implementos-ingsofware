@@ -1,28 +1,31 @@
 const mongoose = require("mongoose");
 
 const implementoSchema = new mongoose.Schema({
-  tipos: [
+  tipo:[
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Tipo",
-    },
-  ],
-  estados: [
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"Tipo"
+    }
+],
+  estado:[
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Estado",
-    },
-  ],
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"Estado"
+    }
+],
   fechaVencimiento: {
-  type: String,
+  type: Date,
   required: true,
 },
-categorias: [
-  {
+  categoria: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Categoria",
+    ref:"Categoria"
   },
-],
+
+  solicitadoPorBrigadista: {
+    type: Boolean,
+    default: false,
+  }
 });
 
 const Implemento = mongoose.model("Implemento", implementoSchema);
