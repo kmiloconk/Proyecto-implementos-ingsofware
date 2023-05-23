@@ -1,5 +1,7 @@
-
 const Implemento = require("../models/Implemento.model");
+const tipo = require("../models/tipo.model.js");
+const estado = require("../models/estado.model.js");
+const categoria = require("../models/categoria.model.js");
 const { handleError } = require("../utils/errorHandler");
 const { implementoBodySchema } = require("../schema/Implemento.schema");
 
@@ -16,9 +18,24 @@ async function createImplemento(implemento) {
     try {
     const { error } = implementoBodySchema.validate(implemento);
     if (error) return null;
-    const { tipo, estado, fechaVencimiento, categoria} = implemento;
+    const { tipos, estados, fechaVencimiento, categorias} = implemento;
 
-    const newImplemento = new Implemento({ tipo, estado, fechaVencimiento, categoria });
+    const tiposFound
+    = await tipo.find({ nombre: { $in: tipos } });
+    const mytipo = tiposFound.map((tipo) =>
+    tipo._id);
+
+    const estadosFound
+    = await estado.find({ nombre: { $in: estados } });
+    const myestado = estadosFound.map((estado) =>
+    estado._id);
+
+    const categoriasFound
+    = await categoria.find({ nombre: { $in: categorias } });
+    const mycategoria = categoriasFound.map((categoria) =>
+    categoria._id);
+
+    const newImplemento = new Implemento({ tipos: mytipo, estados: myestado, fechaVencimiento, categorias: mycategoria });
     return await newImplemento.save();
     } catch (error) {
         handleError(error, "implemento.service -> createImplemento");
@@ -60,5 +77,3 @@ module.exports = {
   updateImplemento,
   deleteImplemento,
 };
-
-

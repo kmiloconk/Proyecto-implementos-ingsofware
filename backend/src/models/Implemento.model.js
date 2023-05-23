@@ -1,32 +1,30 @@
-
 const mongoose = require("mongoose");
 
 const implementoSchema = new mongoose.Schema({
-  tipo:[
+  tipos: [
     {
-        type: mongoose.Schema.Types.ObjectId,
-        ref:"tipo"
-    }
-],
-  estado:[
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Tipo",
+    },
+  ],
+  estados: [
     {
-        type: mongoose.Schema.Types.ObjectId,
-        ref:"estado"
-    }
-],
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Estado",
+    },
+  ],
   fechaVencimiento: {
-  type: Date,
+  type: String,
   required: true,
 },
-  categoria: {
+categorias: [
+  {
     type: mongoose.Schema.Types.ObjectId,
-    ref:"categoria"
+    ref: "Categoria",
   },
+],
 });
 
 const Implemento = mongoose.model("Implemento", implementoSchema);
 
-
 module.exports = Implemento;
-
-

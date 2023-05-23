@@ -1,25 +1,20 @@
 // Importa el archivo 'configEnv.js' para cargar las variables de entorno
 const { configEnv } = require("./config/configEnv.js");
-
 // Importa el módulo 'cors' para agregar los cors
 const cors = require("cors");
-
 // Importa el módulo 'express' para crear la aplicacion web
 const express = require("express");
-
 // Importamos morgan para ver las peticiones que se hacen al servidor
 const morgan = require("morgan");
-
 // Importa el enrutador principal
 const indexRoutes = require("./routes/index.routes.js");
-
 // Importa el archivo 'configDB.js' para crear la conexión a la base de datos
 const { setupDB } = require("./config/configDB.js");
-
 // Importa el handler de errores
 const { handleFatalError, handleError } = require("./utils/errorHandler.js");
 const { createRoles, createUsers } = require("./config/initialSetup");
 const { createTiposMantenimientos, createMantenimientos } = require("./config/initialSetup");
+const { createtipos, createestados, createcategorias, createImplementos } = require("./config/initialSetup");
 
 /**
  * @name setupServer
@@ -69,6 +64,13 @@ async function setupAPI() {
     await createRoles();
 
     await createTiposMantenimientos();
+    
+    await createtipos();
+
+    await createestados();
+
+    await createcategorias();
+
     // Inicia la creación del usuario admin y user
     await createUsers();
 
@@ -82,4 +84,3 @@ async function setupAPI() {
 setupAPI()
   .then(() => console.log("=> API Iniciada exitosamente"))
   .catch((err) => handleFatalError(err, "/server.js -> setupAPI"));
-  
