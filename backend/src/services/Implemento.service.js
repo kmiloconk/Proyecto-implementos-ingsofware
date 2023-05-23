@@ -7,7 +7,7 @@ const { implementoBodySchema } = require("../schema/Implemento.schema");
 
 async function getImplementos() {
     try {
-        return await Implemento.find();
+        return await Implemento.find().populate('tipo').populate('estado');
     } catch (error) {
         handleError(error, "Implemento.service -> getImplementos");
     }
@@ -16,9 +16,11 @@ async function getImplementos() {
 
 async function createImplemento(implemento) {
     try {
+
     const { error } = implementoBodySchema.validate(implemento);
     if (error) return null;
     const { tipo, estado, fechaVencimiento, categoria, solicitadoPorBrigadista} = implemento;
+
 
     const tipoFound = await tipo.find({ nombre: { $in: tipo } });
     const mytipo = tipoFound.map((tipo) => tipo._id);
@@ -66,9 +68,9 @@ async function deleteImplemento(id) {
 }
 
 module.exports = {
-  getImplementos,
-  createImplemento,
-  getImplementoById,
-  updateImplemento,
-  deleteImplemento,
+    getImplementos,
+    createImplemento,
+    getImplementoById,
+    updateImplemento,
+    deleteImplemento,
 };

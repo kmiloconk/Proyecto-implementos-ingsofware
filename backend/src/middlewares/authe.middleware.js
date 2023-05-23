@@ -32,6 +32,7 @@ const verifyToken = async (req, res, next) => {
 
     // Guardamos el id del usuario en la request para usarlo en los controladores
     req.usuarioId = decoded.id;
+    console.log(decoded.id);
     next();
   } catch (error) {
     handleError(error, "authe.middleware -> verifyToken");

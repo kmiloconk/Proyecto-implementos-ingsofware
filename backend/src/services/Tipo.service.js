@@ -15,9 +15,9 @@ async function createTipo(tipo) {
     try {
     const { error } = TipoBodySchema.validate(tipo);
     if (error) return null;
-    const { name, state, expirationDate, category, brigadist } = tipo;
+    const { nombre} = tipo;
 
-    const newTipo = new Tipo({ name, state, expirationDate, category, brigadist });
+    const newTipo = new Tipo({ nombre });
     return await newTipo.save();
     } catch (error) {
         handleError(error, "tipo.service -> createTipo");

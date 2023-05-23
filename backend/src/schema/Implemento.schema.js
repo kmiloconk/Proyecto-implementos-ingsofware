@@ -7,6 +7,7 @@ const categoria = Joi.string().min(1).required();
 const solicitadoPorBrigadista = Joi.boolean().required()
 
 
+
 const implementoBodySchema = Joi.object({
     tipo,
     estado,
