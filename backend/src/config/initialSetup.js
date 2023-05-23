@@ -1,14 +1,26 @@
 const TipoMantenimiento = require("../models/tipoMantenimiento.model.js");
 const Capacitacion = require('../models/Capacitacion.model');
-const Mantenimiento = require("../models/mantenimiento.model.js");
 const Rol = require("../models/Rol.model.js");
-const Tipo = require("../models/Tipo.model.js");
+const Tipo = require("../models/tipo.model.js");
 const Estado = require("../models/Estado.model.js");
 const Categoria = require("../models/Categoria.model.js");
 const Usuario = require("../models/Usuario.model.js");
 const Implemento = require("../models/Implemento.model.js");
 
+async function createCapacitaciones() {
+  try {
+    const count = await Capacitacion.estimatedDocumentCount();
+    if (count > 0) return;
 
+    await Promise.all([
+      new Capacitacion({ nombre: "Manejo de extintores" }).save(),
+      new Capacitacion({ nombre: "Primeros auxilios" }).save(),
+      new Capacitacion({ nombre: "Evaluación de riesgos" }).save(),
+    ]);
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 
 async function eliminarRoles() {
@@ -53,81 +65,8 @@ async function deleteAllUsers() {
   }
 }
 
-/**
- * @name createtipos
- * @description Crea los tipos por defecto en la base de datos
- * @returns {Promise<void>}
- */
-async function createtipos() {
-  try {
-    // Busca todos los roles en la base de datos
-    const count = await tipo.estimatedDocumentCount();
-    // Si no hay tipos de mantenimiento en la base de datos los crea
-    if (count > 0) return;
-
-    await Promise.all([
-      new tipo({ nombre: "malo" }).save(),
-      new tipo({ nombre: "regular" }).save(),
-      new tipo({ nombre: "excelente" }).save(),
-    ]);
-    console.log("* => Mantenimientos creados exitosamente");
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-/**
- * @name createestados
- * @description Crea los estados por defecto en la base de datos
- * @returns {Promise<void>}
- */
-async function createestados() {
-  try {
-    // Busca todos los roles en la base de datos
-    const count = await estado.estimatedDocumentCount();
-    // Si no hay tipos de mantenimiento en la base de datos los crea
-    if (count > 0) return;
-
-    await Promise.all([
-      new estado({ nombre: "nuevo" }).save(),
-      new estado({ nombre: "usado" }).save(),
-    ]);
-    console.log("* => Mantenimientos creados exitosamente");
-  } catch (error) {
-    console.error(error);
-  }
-}
 
 
-/**
- * @name createcategorias
- * @description Crea los categorias por defecto en la base de datos
- * @returns {Promise<void>}
- */
-async function createcategorias() {
-  try {
-    // Busca todos los roles en la base de datos
-    const count = await categoria.estimatedDocumentCount();
-    // Si no hay tipos de mantenimiento en la base de datos los crea
-    if (count > 0) return;
-
-    await Promise.all([
-      new categoria({ nombre: "pesado" }).save(),
-      new categoria({ nombre: "liviano" }).save(),
-      new categoria({ nombre: "estandar" }).save(),
-    ]);
-    console.log("* => Mantenimientos creados exitosamente");
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-
-/**
- * @name createTiposMantenimientos
- * @description Crea los Tiposmantenimientos por defecto en la base de datos
- * @returns {Promise<void>}
- */
 async function createTiposMantenimientos() {
   try {
 
@@ -211,12 +150,6 @@ async function showUsers() {
 
 
 
-/**
- * @name createtipos
- * @description Crea los tipos por defecto en la base de datos
- * @returns {Promise<void>}
- */
-
 async function createTipos() {
   try {
     // Busca todos los roles en la base de datos
@@ -237,11 +170,7 @@ async function createTipos() {
   }
 }
 
-/**
- * @name createEstados
- * @description Crea los estados por defecto en la base de datos
- * @returns {Promise<void>}
- */
+
 async function createEstados() {
   try {
     // Busca todos los roles en la base de datos
@@ -259,11 +188,6 @@ async function createEstados() {
   }
 }
 
-/**
- * @name createCategorias
- * @description Crea las categorias por defecto en la base de datos
- * @returns {Promise<void>}
- */
 
 async function createCategorias() {
   try {
@@ -291,16 +215,16 @@ async function createImplementos() {
     const count = await Implemento.estimatedDocumentCount();
     if (count > 0) return;
 
-    const hacha = await Tipo.findOne({ name: "hacha" });
-    const chaqueta = await Tipo.findOne({ name: "chaqueta" });
-    const motosierra = await Tipo.findOne({ name: "motosierra" });
+    const hacha = await Tipo.findOne({ nombre: "hacha" });
+    const chaqueta = await Tipo.findOne({ nombre: "chaqueta" });
+    const motosierra = await Tipo.findOne({ nombre: "motosierra" });
 
-    const nuevo = await Estado.findOne({ name: "nuevo" });
-    const usado = await Estado.findOne({ name: "usado" });
+    const nuevo = await Estado.findOne({ nombre: "nuevo" });
+    const usado = await Estado.findOne({ nombre: "usado" });
 
-    const pesado = await Categoria.findOne({ name: "pesado" });
-    const liviano = await Categoria.findOne({ name: "liviano" });
-    const estandar = await Categoria.findOne({ name: "estandar" });
+    const pesado = await Categoria.findOne({ nombre: "pesado" });
+    const liviano = await Categoria.findOne({ nombre: "liviano" });
+    const estandar = await Categoria.findOne({ nomnre: "estandar" });
 
     await Promise.all([
       new Implemento({
@@ -331,44 +255,7 @@ async function createImplementos() {
   }
 }
 
-async function createImplementos() {
-  try {
-    const count = await Implemento.estimatedDocumentCount();
-    if (count > 0) return;
 
-    const malo = await Tipo.findOne({ name: "malo" });
-    const regular = await Tipo.findOne({ name: "regular" });
-    const excelente = await Tipo.findOne({ name: "excelente" });
-
-    const nuevo = await estado.findOne({ name: "nuevo" });
-    const usado = await estado.findOne({ name: "usado" });
-
-    const pesado = await categoria.findOne({ name: "pesado" });
-    const liviano = await categoria.findOne({ name: "liviano" });
-    const estandar = await categoria.findOne({ name: "estandar" });
-
-    await Promise.all([
-      new Implemento({
-        tipos: malo._id,
-        estados: nuevo._id,
-        categorias: pesado._id,
-      }).save(),
-      new Implemento({
-        tipos: regular._id,
-        estados: usado._id,
-        categorias: liviano._id,
-      }).save(),
-      new Implemento({
-        tipos: excelente._id,
-        estados: nuevo._id,
-        categorias: estandar._id,
-      }).save(),
-    ]);
-    console.log("* => Mantenimientos creados exitosamente");
-  } catch (error) {
-    console.error(error);
-  }
-}
 
 
 
@@ -382,16 +269,13 @@ module.exports = {
   createCategorias,
   createImplementos,
   createTiposMantenimientos,
-  createtipos,
-  createestados,
-  createcategorias,
-  createMantenimientos,
   createImplementos,
   createUsers,
   verRoles,
   eliminarRoles,
   showUsers,
   deleteAllUsers,
-  displayTiposMantenimientos
+  displayTiposMantenimientos,
+  createCapacitaciones
 };
 

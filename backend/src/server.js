@@ -9,9 +9,9 @@ const { setupDB } = require("./config/configDB.js");
 
 
 const { handleFatalError, handleError } = require("./utils/errorHandler.js");
-const { createRoles, verRoles, showUsers, createUsers, deleteAllUsers, eliminarRoles, createCapacitaciones, createTipos, createEstados, displayTiposMantenimientos} = require("./config/initialSetup");
+const { createRoles, verRoles, showUsers, createUsers, deleteAllUsers, eliminarRoles, createCapacitaciones, createTipos, createEstados, displayTiposMantenimientos, createCategorias} = require("./config/initialSetup");
 const { createTiposMantenimientos } = require("./config/initialSetup");
-const { createtipos, createestados, createcategorias, createImplementos } = require("./config/initialSetup");
+const {  createImplementos } = require("./config/initialSetup");
 
 
 async function setupServer() {
@@ -48,13 +48,10 @@ async function setupAPI() {
     await createEstados()
     await displayTiposMantenimientos();
     await createTiposMantenimientos();
+    await createCategorias();
+    await createImplementos();
 
-    
-    await createtipos();
 
-    await createestados();
-
-    await createcategorias();
 
 
 
