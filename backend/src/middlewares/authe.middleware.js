@@ -20,7 +20,6 @@ const { respondError } = require("../utils/resHandler");
 const verifyToken = async (req, res, next) => {
   try {
     const token = req.headers["token"];
-    //console.log(token)
 
     if (!token) return respondError(req, res, 403, "No hay token");
 

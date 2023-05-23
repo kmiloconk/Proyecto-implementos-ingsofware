@@ -1,6 +1,6 @@
 // Servicio creado para manejar la autenticación de usuarios
-const Usuario = require("../models/Usuario.model");
-const Rol = require("../models/Rol.model");
+const User = require("../models/user.model.js");
+const Role = require("../models/role.model.js");
 
 const jwt = require("jsonwebtoken");
 const { configEnv } = require("../config/configEnv.js");
@@ -50,12 +50,12 @@ const { JWT_SECRET } = configEnv();
  * @param user {User} - Objeto con los datos del usuario
  * @returns {Promise<null>}
  */
-async function signIn(usuario) {
+async function signIn(user) {
   try {
     const usuarioFound = await Usuario.findOne({ email: usuario.email }).populate(
       "rol",
     );
-    if (!usuarioFound) return null;
+    if (!userFound) return null;
 
     return jwt.sign({ id: usuarioFound._id }, JWT_SECRET, {
       expiresIn: 86400, // 24 horas

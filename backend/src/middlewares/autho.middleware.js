@@ -1,10 +1,10 @@
 // Autorizacion - Comprobar el rol del usuario
-const Usuario = require("../models/Usuario.model");
-const Rol = require("../models/Rol.model");
+const User = require("../models/user.model.js");
+const Role = require("../models/role.model.js");
 const { respondError } = require("../utils/resHandler");
 const { handleError } = require("../utils/errorHandler");
 
-async function isEncargado(req, res, next) {
+async function isAdmin(req, res, next) {
   try {
     const usuario = await Usuario.findOne(req.usuarioId);
     if (!usuario) {
@@ -18,9 +18,9 @@ async function isEncargado(req, res, next) {
         return;
       }
     }
-    return respondError(req, res, 401, "Require Encargado Rol!");
+    return respondError(req, res, 401, "Require Admin Role!");
   } catch (error) {
-    handleError(error, "autho.middleware -> isEncargado");
+    handleError(error, "autho.middleware -> isAdmin");
   }
 }
 

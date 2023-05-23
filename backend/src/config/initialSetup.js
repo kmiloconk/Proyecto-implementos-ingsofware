@@ -1,7 +1,7 @@
 const Rol = require("../models/Rol.model");
 const Usuario = require("../models/Usuario.model");
-
-
+const TipoMantenimiento = require("../models/tipoMantenimiento.model.js");
+const Mantenimiento = require("../models/mantenimiento.model.js");
 
 
 
@@ -41,6 +41,27 @@ async function deleteAllUsers() {
   try {
     await Usuario.deleteMany();
     console.log("Todos los usuarios han sido eliminados exitosamente.");
+  } catch (error) {
+    console.error(error);
+  }
+}
+/**
+ * @name createTiposMantenimientos
+ * @description Crea los Tiposmantenimientos por defecto en la base de datos
+ * @returns {Promise<void>}
+ */
+async function createTiposMantenimientos() {
+  try {
+    // Busca todos los roles en la base de datos
+    const count = await TipoMantenimiento.estimatedDocumentCount();
+    // Si no hay tipos de mantenimiento en la base de datos los crea
+    if (count > 0) return;
+    await Promise.all([
+      new TipoMantenimiento({ nombre: "correctivo" }).save(),
+      new TipoMantenimiento({ nombre: "preventivo" }).save(),
+      new TipoMantenimiento({ nombre: "predictivo" }).save(),
+    ]);
+    console.log("* => Mantenimientos creados exitosamente");
   } catch (error) {
     console.error(error);
   }
@@ -122,8 +143,82 @@ async function solicitarEquipamiento(brigadistaId, implementoId) {
 
 
 
+
+/**
+ * @name createUsers
+ * @description Crea los usuarios por defecto en la base de datos
+ * @returns {Promise<void>}
+ */
+
+async function createUsers() {
+  try {
+    const count = await User.estimatedDocumentCount();
+    if (count > 0) return;
+
+    const admin = await Role.findOne({ name: "admin" });
+    const user = await Role.findOne({ name: "user" });
+
+
+    if (!brigadista || !encargado) {
+      console.error("No se encontraron los roles 'Encargado' o 'Brigadista'");
+      return;
+    }
+
+    await Promise.all([
+
+      new Usuario({
+        name: "Brigadista",
+        email: "brigadista@email.com",
+        roles: brigadista._id,
+      }).save(),
+      new Usuario({
+        name: "Encargado",
+        email: "encargado@email.com",
+        roles: encargado._id,
+      }).save(),
+    ]);
+    console.log("* => Users creados exitosamente");
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+/**
+ * @name createMantenimientos
+ * @description Crea los mantenimientos por defecto en la base de datos
+ * @returns {Promise<void>}
+ */
+async function createMantenimientos() {
+  try {
+    const count = await Mantenimiento.estimatedDocumentCount();
+    if (count > 0) return;
+
+    const correctivo = await TipoMantenimiento.findOne({ name: "correctivo" });
+    const preventivo = await TipoMantenimiento.findOne({ name: "preventivo" });
+    const predictivo = await TipoMantenimiento.findOne({ name: "predictivo" });
+
+    await Promise.all([
+      new Mantenimiento({
+        tiposMantenimientos: correctivo._id,
+      }).save(),
+      new Mantenimiento({
+        tiposMantenimientos: preventivo._id,
+      }).save(),
+      new Mantenimiento({
+        tiposMantenimientos: predictivo._id,
+      }).save(),
+    ]);
+    console.log("* => Mantenimientos creados exitosamente");
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+
 module.exports = {
   createRoles,
+  createTiposMantenimientos,
+  createMantenimientos,
   createUsers,
   verRoles,
   eliminarRoles,
