@@ -2,18 +2,18 @@
 // Importa el modulo 'mongoose' para crear la conexion a la base de datos
 const mongoose = require("mongoose");
 
-const tipoS = ["malo", "regular", "excelente"];
+const categoriaS = ["pesado", "liviano", "estandar"];
 
-// Crea el esquema de la coleccion 'tipo'
-const tipoSchema = new mongoose.Schema({
+// Crea el esquema de la coleccion 'categoria'
+const categoriaSchema = new mongoose.Schema({
   nombre: {
     type: String,
-    enum: tipoS,
+    enum: categoriaS,
     required: true,
   },
 });
 
 // Crea el modelo de datos 'Mantenimiento' a partir del esquema 'MantenimientoSchema'
-const tipo = mongoose.model("tipo", tipoSchema);
+const categoria = mongoose.model("categoria", categoriaSchema);
 
-module.exports = tipo;
+module.exports = categoria;

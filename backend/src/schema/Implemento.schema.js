@@ -17,3 +17,4 @@ const implementoBodySchema = Joi.object({
 });
 
 module.exports = { implementoBodySchema };
+
