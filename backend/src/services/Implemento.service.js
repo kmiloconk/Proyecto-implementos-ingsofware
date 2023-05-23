@@ -1,3 +1,4 @@
+
 const Implemento = require("../models/Implemento.model");
 const { handleError } = require("../utils/errorHandler");
 const { implementoBodySchema } = require("../schema/Implemento.schema");
@@ -59,4 +60,5 @@ module.exports = {
   updateImplemento,
   deleteImplemento,
 };
+
 
