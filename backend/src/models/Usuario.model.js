@@ -24,8 +24,9 @@ const usuarioSchema = new mongoose.Schema({
     ],
     rol: [
         {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Rol",
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Rol",
+
         },
     ],
 });

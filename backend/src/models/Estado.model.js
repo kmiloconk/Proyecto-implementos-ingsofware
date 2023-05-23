@@ -2,10 +2,12 @@
 // Importa el modulo 'mongoose' para crear la conexion a la base de datos
 const mongoose = require("mongoose");
 
+const ESTADOS = ["nuevo", "usado"];
 // Crea el esquema de la coleccion 'capacitaciones'
 const EstadoSchema = new mongoose.Schema({
   nombre:{
     type: String,
+    enum: ESTADOS,
     required: true,
   },
 });

@@ -1,9 +1,13 @@
 const mongoose = require("mongoose");
 
 
+const CATEGORIAS = ["pesado", "liviano", "estandar"];
+
+
 const categoriaSchema = new mongoose.Schema({
   nombre: {
     type: String,
+    enum: CATEGORIAS,
     required: true,
   },
 });

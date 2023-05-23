@@ -2,12 +2,12 @@ const express = require("express");
 const usuarioController = require("../controllers/Usuario.controller");
 const authoMiddleware = require("../middlewares/autho.middleware.js");
 
-const router = express.Router();
+const api = express.Router();
 
-router.get("/", usuarioController.getUsuarios);
-router.post("/", authoMiddleware.isEncargado, usuarioController.createUsuario);
-router.get("/:id", usuarioController.getUsuarioById);
-router.put("/:id", authoMiddleware.isEncargado, usuarioController.updateUsuario);
-router.delete("/:id", authoMiddleware.isEncargado, usuarioController.deleteUsuario);
+api.get("/", usuarioController.getUsuarios);
+api.post("/", usuarioController.createUsuario);
+api.get("/:id", usuarioController.getUsuarioById);
+api.put("/:id", authoMiddleware.isEncargado, usuarioController.updateUsuario);
+api.delete("/:id", usuarioController.deleteUsuario);
 
-module.exports = router;
+module.exports = api;
