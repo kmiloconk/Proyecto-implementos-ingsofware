@@ -1,15 +1,9 @@
-"use strict";
 
 const { respondSuccess, respondError } = require("../utils/resHandler");
-//const UserService = require("../services/user.service");
+const EstadoService = require("../services/Estado.service");
 const { handleError } = require("../utils/errorHandler");
 
-/**
- * @name getEstado
- * @description Obtiene todos los Estados
- * @param req {Request}
- * @param res {Response}
- */
+
 async function getEstado(req, res) {
   try {
     const Estado = await EstadoService.getEstado();
@@ -21,14 +15,10 @@ async function getEstado(req, res) {
   }
 }
 
-/**
- * @name createEstado
- * @description Crea un nuevo estado
- * @param req {Request}
- * @param res {Response}
- */
+
 async function createEstado(req, res) {
   try {
+    console.log(req.body);
     const nuevoEstado = await EstadoService.createEstado(req.body);
     nuevoEstado === null
       ? respondError(
@@ -118,7 +108,7 @@ async function deleteEstado(req, res) {
           "Not Found",
           { message: "Verifique el id ingresado" },
         )
-      : respondSuccess(req, res, 200, user);
+      : respondSuccess(req, res, 200);
   } catch (error) {
     handleError(error, "Estado.controller -> deleteEstado");
     respondError(req, res, 500, "No se pudo eliminar el estado");

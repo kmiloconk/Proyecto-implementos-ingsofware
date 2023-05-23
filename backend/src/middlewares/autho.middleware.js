@@ -6,10 +6,14 @@ const { handleError } = require("../utils/errorHandler");
 
 async function isAdmin(req, res, next) {
   try {
-    const user = await User.findById(req.userId);
-    const roles = await Role.find({ _id: { $in: user.roles } });
-    for (let i = 0; i < roles.length; i++) {
-      if (roles[i].name === "admin") {
+    const usuario = await Usuario.findOne(req.usuarioId);
+    if (!usuario) {
+      return respondError(req, res, 401, "Encargado no encontrado!");
+    }
+
+    const rol = await Rol.find({ _id: { $in: usuario.rol } });
+    for (let i = 0; i < rol.length; i++) {
+      if (rol[i].nombre === "Encargado") {
         next();
         return;
       }
@@ -20,6 +24,27 @@ async function isAdmin(req, res, next) {
   }
 }
 
+async function isBrigadista(req, res, next) {
+  try {
+    console.log(req.usuarioId);
+    const usuario = await Usuario.findById(req.usuarioId);
+    if (!usuario) {
+      return respondError(req, res, 401, "Brigadista no encontrado!");
+    }
+    const rol = await Rol.find({ _id: { $in: usuario.rol } });
+    for (let i = 0; i < rol.length; i++) {
+      if (rol[i].nombre === "Brigadista") {
+        next();
+        return;
+      }
+    }
+    return respondError(req, res, 401, "Require Brigadista Rol!");
+  } catch (error) {
+    handleError(error, "autho.middleware -> isEncargado");
+  }
+}
+
 module.exports = {
-  isAdmin,
+  isEncargado,
+  isBrigadista
 };

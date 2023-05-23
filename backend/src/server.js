@@ -18,7 +18,7 @@ const { setupDB } = require("./config/configDB.js");
 
 // Importa el handler de errores
 const { handleFatalError, handleError } = require("./utils/errorHandler.js");
-const { createRoles, createUsers } = require("./config/initialSetup");
+const { createRoles, verRoles, showUsers, createUsers, deleteAllUsers, eliminarRoles} = require("./config/initialSetup");
 const { createTiposMantenimientos, createMantenimientos } = require("./config/initialSetup");
 
 /**
@@ -53,12 +53,7 @@ async function setupServer() {
   }
 }
 
-/**
- * @name setupAPI
- * @description Inicia la API
- * @returns {Promise<void>}
- * @throws {Error}
- */
+
 async function setupAPI() {
   try {
     // Inicia la conexión a la base de datos
@@ -66,11 +61,16 @@ async function setupAPI() {
     // Inicia el servidor web
     await setupServer();
     // Inicia la creación de los roles
+    //await eliminarRoles();
     await createRoles();
+    await verRoles();
+    //Inicia la creación del usuario admin y user
+    //await deleteAllUsers();
+    await createUsers();
+    await showUsers();
 
     await createTiposMantenimientos();
     // Inicia la creación del usuario admin y user
-    await createUsers();
 
     await createMantenimientos();
   } catch (err) {
@@ -82,4 +82,3 @@ async function setupAPI() {
 setupAPI()
   .then(() => console.log("=> API Iniciada exitosamente"))
   .catch((err) => handleFatalError(err, "/server.js -> setupAPI"));
-  
