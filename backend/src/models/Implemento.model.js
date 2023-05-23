@@ -25,4 +25,6 @@ const implementoSchema = new mongoose.Schema({
 
 const Implemento = mongoose.model("Implemento", implementoSchema);
 
+
 module.exports = Implemento;
+

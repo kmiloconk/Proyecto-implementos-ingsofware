@@ -38,6 +38,7 @@ async function createUsers() {
     const encargado = await Rol.findOne({ name: "Encargado" });
     const brigadista = await Rol.findOne({ name: "Brigadista" });
 
+
     if (!brigadista || !encargado) {
       console.error("No se encontraron los roles 'Encargado' o 'Brigadista'");
       return;
