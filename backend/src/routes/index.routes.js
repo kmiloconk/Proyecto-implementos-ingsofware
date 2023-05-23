@@ -3,7 +3,12 @@
 const express = require("express");
 
 // Importa el enrutador de usuarios
-const usuarioRoutes = require("./Usuario.routes");
+const userRoutes = require("./user.routes.js");
+
+const implementoRoutes = require("./implemento.routes.js");
+
+const mantenimientoRoutes = require("./mantenimiento.routes.js");
+
 // Importa el enrutador de autenticación
 const authRoutes = require("./auth.routes.js");
 // Importa el middleware de autenticación
@@ -13,9 +18,12 @@ const authMiddleware = require("../middlewares/authe.middleware.js");
 const router = express.Router();
 
 // Define las rutas para los usuarios /api/usuarios
-router.use("/Usuario", authMiddleware.verifyToken, usuarioRoutes);
+router.use("/users", authMiddleware.verifyToken, userRoutes);
 // Define las rutas para la autenticación /api/auth
 router.use("/auth", authRoutes);
+
+router.use("/implemento", authMiddleware.verifyToken, implementoRoutes);
+router.use("/mantenimiento", authMiddleware.verifyToken, mantenimientoRoutes);
 
 // Exporta el enrutador
 module.exports = router;

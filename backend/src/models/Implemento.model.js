@@ -1,26 +1,22 @@
 const mongoose = require("mongoose");
 
 const implementoSchema = new mongoose.Schema({
-  tipo:[
-    {
-        type: mongoose.Schema.Types.ObjectId,
-        ref:"tipo"
-    }
-],
-  estado:[
-    {
-        type: mongoose.Schema.Types.ObjectId,
-        ref:"estado"
-    }
-],
+  tipo: {
+    type: String,
+    required: true,
+  },
+  estado: {
+    type: String,
+    required: true,
+  },
   fechaVencimiento: {
-  type: Date,
+  type: String,
   required: true,
 },
-  categoria: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref:"categoria"
-  },
+categoria: {
+  type: String,
+  required: true,
+},
 });
 
 const Implemento = mongoose.model("Implemento", implementoSchema);
