@@ -1,9 +1,23 @@
 const Notificacion = require("../models/Notificacion.model");
+const Rol = require("../models/Rol.model");
+const Usuario = require('../models/Usuario.model');
 const { handleError } = require("../utils/errorHandler");
 
 async function getNotificaciones() {
     try {
-        return await Notificacion.find(),populate('brigadista'),populate('implemento');
+        return await Notificacion.find().populate('brigadista','nombre').populate({
+            path: 'implemento',
+            populate: {
+                path: 'tipo',
+                select: 'nombre',
+            },
+        }).populate({
+            path: 'implemento',
+            populate: {
+                path: 'estado',
+                select: 'nombre',
+            },
+        });
     } catch (error) {
         handleError(error, "Notificacion.service -> getNotificacion");
     }
@@ -11,12 +25,19 @@ async function getNotificaciones() {
 
 async function createNotificacion(notificacion) {
     try {
-    const { brigadista, implemento, descripcion, fechaCreacion} = notificacion;
+        const {brigadista, implemento, descripcion} = notificacion;
 
-    const newNotificacion = new Notificacion({ brigadista, implemento, descripcion, fechaCreacion });
-    return await newNotificacion.save();
+        const newNotificacion = new Notificacion({
+            brigadista,
+            implemento,
+            descripcion
+        });
+
+        console.log("Notificación creada exitosamente");
+        return await newNotificacion.save();
     } catch (error) {
         handleError(error, "implemento.service -> createImplemento");
+        return null;
     }
 }
 

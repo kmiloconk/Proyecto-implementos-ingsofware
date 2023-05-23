@@ -6,7 +6,7 @@ const { handleError } = require("../utils/errorHandler");
 
 async function isEncargado(req, res, next) {
   try {
-    const usuario = await Usuario.findOne(req.userId);
+    const usuario = await Usuario.findOne(req.usuarioId);
     if (!usuario) {
       return respondError(req, res, 401, "Encargado no encontrado!");
     }
@@ -26,8 +26,8 @@ async function isEncargado(req, res, next) {
 
 async function isBrigadista(req, res, next) {
   try {
-    console.log(req.userId)
-    const usuario = await Usuario.findById(req.userId);
+    console.log(req.usuarioId);
+    const usuario = await Usuario.findById(req.usuarioId);
     if (!usuario) {
       return respondError(req, res, 401, "Brigadista no encontrado!");
     }

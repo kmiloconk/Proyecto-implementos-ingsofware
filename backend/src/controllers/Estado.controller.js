@@ -18,6 +18,7 @@ async function getEstado(req, res) {
 
 async function createEstado(req, res) {
   try {
+    console.log(req.body);
     const nuevoEstado = await EstadoService.createEstado(req.body);
     nuevoEstado === null
       ? respondError(

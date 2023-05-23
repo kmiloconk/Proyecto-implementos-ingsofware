@@ -20,6 +20,7 @@ const { respondError } = require("../utils/resHandler");
 const verifyToken = async (req, res, next) => {
   try {
     const token = req.headers["token"];
+    //console.log(token)
 
     if (!token) return respondError(req, res, 403, "No hay token");
 
@@ -32,6 +33,7 @@ const verifyToken = async (req, res, next) => {
 
     // Guardamos el id del usuario en la request para usarlo en los controladores
     req.usuarioId = decoded.id;
+    console.log(decoded.id);
     next();
   } catch (error) {
     handleError(error, "authe.middleware -> verifyToken");
