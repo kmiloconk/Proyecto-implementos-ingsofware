@@ -12,9 +12,11 @@ const indexRoutes = require("./routes/index.routes.js");
 const { setupDB } = require("./config/configDB.js");
 // Importa el handler de errores
 const { handleFatalError, handleError } = require("./utils/errorHandler.js");
+const { createTipoModAsignacion, createAsignacion } = require("./config/initialSetup");
 const { createRoles, verRoles, showUsers, createUsers, deleteAllUsers, eliminarRoles} = require("./config/initialSetup");
 const { createTiposMantenimientos, createMantenimientos } = require("./config/initialSetup");
 const { createtipos, createestados, createcategorias, createImplementos } = require("./config/initialSetup");
+
 
 /**
  * @name setupServer
@@ -62,6 +64,11 @@ async function setupAPI() {
     //Inicia la creación del usuario admin y user
     //await deleteAllUsers();
     await createUsers();
+
+
+    await createTipoModAsignacion();
+
+    await createAsignacion();
     await showUsers();
 
     await createTiposMantenimientos();

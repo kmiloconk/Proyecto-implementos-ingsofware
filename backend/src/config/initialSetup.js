@@ -1,5 +1,5 @@
-
-const Role = require("../models/role.model.js");
+const TipoModAsignacion = require("../models/tipoModAsignacion.model.js");
+const Asignacion = require("../models/Asignacion.model.js");
 const TipoMantenimiento = require("../models/tipoMantenimiento.model.js");
 const Mantenimiento = require("../models/mantenimiento.model.js");
 const Rol = require("../models/Rol.model.js");
@@ -122,11 +122,26 @@ async function createcategorias() {
 }
 
 
-/**
- * @name createTiposMantenimientos
- * @description Crea los Tiposmantenimientos por defecto en la base de datos
- * @returns {Promise<void>}
- */
+
+async function createTipoModAsignacion() {
+  try {
+    // Busca todos los roles en la base de datos
+    const count = await TipoModAsignacion.estimatedDocumentCount();
+    // Si no hay tipos de mantenimiento en la base de datos los crea
+    if (count > 0) return;
+
+    await Promise.all([
+      new TipoModAsignacion({ nombre: "Asignacion" }).save(),
+      new TipoModAsignacion({ nombre: "Modificacion" }).save(),
+      new TipoModAsignacion({ nombre: "Eliminacion" }).save(),
+    ]);
+    console.log("* => Tipos de modificacion creados exitosamente");
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+
 async function createTiposMantenimientos() {
   try {
 
@@ -344,6 +359,33 @@ async function createImplementos() {
   }
 }
 
+
+async function createAsignacion() {
+  try {
+    const count = await Asignacion.estimatedDocumentCount();
+    if (count > 0) return;
+
+    const Asignacion = await TipoModAsignacion.findOne({ name: "Asignacion" });
+    const Modificacion = await TipoModAsignacion.findOne({ name: "Modificacion" });
+    const Eliminacion = await TipoModAsignacion.findOne({ name: "Eliminacion" });
+
+    await Promise.all([
+      new Asignacion({
+        TipoModAsignacion: Asignacion._id,
+      }).save(),
+      new Asignacion({
+        TipoModAsignacion: Modificacion._id,
+      }).save(),
+      new Asignacion({
+        TipoModAsignacion: Eliminacion._id,
+      }).save(),
+    ]);
+    console.log("* => Asignaciones creadas exitosamente");
+    } catch (error) {
+    console.error(error);
+  }
+}
+
 async function createImplementos() {
   try {
     const count = await Implemento.estimatedDocumentCount();
@@ -377,15 +419,12 @@ async function createImplementos() {
         categorias: estandar._id,
       }).save(),
     ]);
-    console.log("* => Mantenimientos creados exitosamente");
+    console.log("* => Implementos creados exitosamente");
+
   } catch (error) {
     console.error(error);
   }
 }
-
-
-
-
 
 
 module.exports = {
@@ -401,6 +440,8 @@ module.exports = {
   createMantenimientos,
   createImplementos,
   createUsers,
+  createAsignacion,
+  createTipoModAsignacion,
   verRoles,
   eliminarRoles,
   showUsers,
