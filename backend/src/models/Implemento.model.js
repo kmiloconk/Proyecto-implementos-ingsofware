@@ -21,6 +21,11 @@ const implementoSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref:"categoria"
   },
+
+  solicitadoPorBrigadista: {
+    type: Boolean,
+    default: false,
+  }
 });
 
 const Implemento = mongoose.model("Implemento", implementoSchema);
