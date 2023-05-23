@@ -1,7 +1,11 @@
 const Rol = require("../models/Rol.model");
 const Usuario = require("../models/Usuario.model");
 const TipoMantenimiento = require("../models/tipoMantenimiento.model.js");
-const Mantenimiento = require("../models/mantenimiento.model.js");
+const Capacitacion = require('../models/Capacitacion.model');
+const Tipo = require('../models/tipo.model');
+const Estado = require('../models/Estado.model');
+
+
 
 
 
@@ -45,16 +49,10 @@ async function deleteAllUsers() {
     console.error(error);
   }
 }
-/**
- * @name createTiposMantenimientos
- * @description Crea los Tiposmantenimientos por defecto en la base de datos
- * @returns {Promise<void>}
- */
+
 async function createTiposMantenimientos() {
   try {
-    // Busca todos los roles en la base de datos
     const count = await TipoMantenimiento.estimatedDocumentCount();
-    // Si no hay tipos de mantenimiento en la base de datos los crea
     if (count > 0) return;
     await Promise.all([
       new TipoMantenimiento({ nombre: "correctivo" }).save(),
@@ -62,6 +60,23 @@ async function createTiposMantenimientos() {
       new TipoMantenimiento({ nombre: "predictivo" }).save(),
     ]);
     console.log("* => Mantenimientos creados exitosamente");
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function displayTiposMantenimientos() {
+  try {
+    const tiposMantenimientos = await TipoMantenimiento.find();
+    if (tiposMantenimientos.length === 0) {
+      console.log("No se encontraron tipos de mantenimiento.");
+      return;
+    }
+
+    console.log("Tipos de Mantenimiento:");
+    tiposMantenimientos.forEach((tipoMantenimiento) => {
+      console.log(`- ID: ${tipoMantenimiento._id} - Nombre: ${tipoMantenimiento.nombre}`);
+    });
   } catch (error) {
     console.error(error);
   }
@@ -110,119 +125,68 @@ async function showUsers() {
   }
 }
 
-async function solicitarEquipamiento(brigadistaId, implementoId) {
+async function createCapacitaciones() {
   try {
-    // Verificar si el brigadista existe
-    const brigadista = await Usuario.findById(brigadistaId);
-    if (!brigadista) {
-      console.log("Brigadista no encontrado");
-      return;
-    }
-
-    // Verificar si el usuario es un brigadista
-    const brigadistaRole = await Rol.findOne({ nombre: "Brigadista" });
-    if (!brigadista.rol.equals(brigadistaRole._id)) {
-      console.log("El usuario no es un brigadista");
-      return;
-    }
-    const implemento = await Usuario.findById(implementoId);
-    // Crear la notificación y guardarla en la base de datos
-    const notificacion = new Notificacion({
-      brigadista: brigadista._id,
-      implemento: implemento._id,
-      estado: "Pendiente",
-    });
-    await notificacion.save();
-
-    console.log("Notificación creada exitosamente");
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-
-
-
-
-/**
- * @name createUsers
- * @description Crea los usuarios por defecto en la base de datos
- * @returns {Promise<void>}
- */
-
-async function createUsers() {
-  try {
-    const count = await User.estimatedDocumentCount();
+    const count = await Capacitacion.estimatedDocumentCount();
     if (count > 0) return;
 
-    const admin = await Role.findOne({ name: "admin" });
-    const user = await Role.findOne({ name: "user" });
-
-
-    if (!brigadista || !encargado) {
-      console.error("No se encontraron los roles 'Encargado' o 'Brigadista'");
-      return;
-    }
-
     await Promise.all([
-
-      new Usuario({
-        name: "Brigadista",
-        email: "brigadista@email.com",
-        roles: brigadista._id,
-      }).save(),
-      new Usuario({
-        name: "Encargado",
-        email: "encargado@email.com",
-        roles: encargado._id,
-      }).save(),
+      new Capacitacion({ nombre: "Manejo de extintores" }).save(),
+      new Capacitacion({ nombre: "Primeros auxilios" }).save(),
+      new Capacitacion({ nombre: "Evaluación de riesgos" }).save(),
     ]);
-    console.log("* => Users creados exitosamente");
   } catch (error) {
     console.error(error);
   }
 }
 
-/**
- * @name createMantenimientos
- * @description Crea los mantenimientos por defecto en la base de datos
- * @returns {Promise<void>}
- */
-async function createMantenimientos() {
+async function createTipos() {
   try {
-    const count = await Mantenimiento.estimatedDocumentCount();
+    const count = await Tipo.estimatedDocumentCount();
     if (count > 0) return;
 
-    const correctivo = await TipoMantenimiento.findOne({ name: "correctivo" });
-    const preventivo = await TipoMantenimiento.findOne({ name: "preventivo" });
-    const predictivo = await TipoMantenimiento.findOne({ name: "predictivo" });
-
     await Promise.all([
-      new Mantenimiento({
-        tiposMantenimientos: correctivo._id,
-      }).save(),
-      new Mantenimiento({
-        tiposMantenimientos: preventivo._id,
-      }).save(),
-      new Mantenimiento({
-        tiposMantenimientos: predictivo._id,
-      }).save(),
+      new Tipo({ nombre: "Casco" }).save(),
+      new Tipo({ nombre: "Chaleco ignífugo" }).save(),
+      new Tipo({ nombre: "Mascarilla antigás" }).save(),
+      new Tipo({ nombre: "Botas de seguridad" }).save(),
+      new Tipo({ nombre: "Linterna resistente al agua" }).save(),
     ]);
-    console.log("* => Mantenimientos creados exitosamente");
   } catch (error) {
     console.error(error);
   }
 }
+
+async function createEstados() {
+  try {
+    const count = await Estado.estimatedDocumentCount();
+    if (count > 0) return;
+
+    await Promise.all([
+      new Estado({ nombre: "Perfecto" }).save(),
+      new Estado({ nombre: "Usado" }).save(),
+      new Estado({ nombre: "En Mantención" }).save(),
+      new Estado({ nombre: "Roto" }).save(),
+    ]);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+
+
 
 
 module.exports = {
+  createCapacitaciones,
+  createEstados,
+  createTipos,
   createRoles,
   createTiposMantenimientos,
-  createMantenimientos,
   createUsers,
   verRoles,
   eliminarRoles,
   showUsers,
-  solicitarEquipamiento,
-  deleteAllUsers
+  deleteAllUsers,
+  displayTiposMantenimientos
 };

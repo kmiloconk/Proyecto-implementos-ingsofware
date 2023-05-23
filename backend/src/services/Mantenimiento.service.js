@@ -1,16 +1,8 @@
-"use strict";
-// Importa el modelo de datos 'Mantenimiento'
 const Mantenimiento = require("../models/mantenimiento.model.js");
 const TipoMantenimiento = require("../models/tipoMantenimiento.model.js");
 const { handleError } = require("../utils/errorHandler");
 const { mantenimientoBodySchema } = require("../schema/mantenimiento.schema");
 
-
-/**
- * @name getMantenimientos
- * @description Obtiene todos los mantenimientos
- * @returns {Promise<Mantenimiento[]|[]>}
- */
 async function getMantenimientos() {
   try {
     return await Mantenimiento.find();
@@ -19,15 +11,7 @@ async function getMantenimientos() {
   }
 }
 
-
-/**
- * @name createMantenimiento
- * @description Crea un nuevo mantenimiento
- * @param mantenimiento {Mantenimiento} - Objeto con los datos del mantenimiento
- * @returns {Promise<Mantenimiento|null>}
- */
 async function createMantenimiento(mantenimiento) {
-  // Esta funcion es similar al singup
   try {
     const { error } = mantenimientoBodySchema.validate(mantenimiento);
     if (error) return null;
@@ -47,14 +31,6 @@ async function createMantenimiento(mantenimiento) {
   }
 }
 
-
-/**
- * @name updateMantenimiento
- * @description Actualiza un mantenimiento
- * @param id
- * @param mantenimiento
- * @returns {Promise<Mantenimiento|null>}
- */
 async function updateMantenimiento(id, mantenimiento) {
   try {
     const { error } = mantenimientoBodySchema.validate(mantenimiento);

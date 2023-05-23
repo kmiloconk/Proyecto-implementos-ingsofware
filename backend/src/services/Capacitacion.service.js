@@ -1,6 +1,6 @@
 const Capacitacion = require("../models/Capacitacion.model");
 const { handleError } = require("../utils/errorHandler");
-const { TipoBodySchema } = require("../schema/Capacitacion.schema");
+const { CapacitacionBodySchema } = require("../schema/Capacitacion.schema");
 
 async function getCapacitacion() {
     try {
@@ -53,9 +53,9 @@ async function deleteCapacitacion(id) {
 }
 
 module.exports = {
-  getCapacitacion,
-  createCapacitacion,
-  getCapacitacionById,
-  updateCapacitacion,
-  deleteCapacitacion,
+    getCapacitacion,
+    createCapacitacion,
+    getCapacitacionById,
+    updateCapacitacion,
+    deleteCapacitacion,
 };

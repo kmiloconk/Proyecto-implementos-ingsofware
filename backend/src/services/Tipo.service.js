@@ -53,9 +53,9 @@ async function deleteTipo(id) {
 }
 
 module.exports = {
-  getTipos,
-  createTipo,
-  getTipoById,
-  updateTipo,
-  deleteTipo,
+    getTipos,
+    createTipo,
+    getTipoById,
+    updateTipo,
+    deleteTipo,
 };

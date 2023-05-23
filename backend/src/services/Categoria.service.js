@@ -53,9 +53,9 @@ async function deleteCategoria(id) {
 }
 
 module.exports = {
-  getCategorias,
-  createCategoria,
-  getCategoriaById,
-  updateCategoria,
-  deleteCategoria,
+    getCategorias,
+    createCategoria,
+    getCategoriaById,
+    updateCategoria,
+    deleteCategoria,
 };

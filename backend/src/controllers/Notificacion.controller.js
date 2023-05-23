@@ -35,9 +35,6 @@ async function createNotificacion(req, res) {
 }
 
 
-
-
-
 async function deleteNotificacion(req, res) {
     try {
         const { id } = req.params;
