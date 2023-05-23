@@ -1,9 +1,9 @@
 // Importa el modelo de datos 'Role'
-const Role = require("../models/role.model.js");
+const Rol = require("../models/Rol.model.js");
 const Tipo = require("../models/Tipo.model.js");
 const Estado = require("../models/Estado.model.js");
 const Categoria = require("../models/Categoria.model.js");
-const User = require("../models/user.model.js");
+const Usuario = require("../models/Usuario.model.js");
 const Implemento = require("../models/Implemento.model.js");
 
 /**
@@ -19,8 +19,8 @@ async function createRoles() {
     if (count > 0) return;
 
     await Promise.all([
-      new Role({ name: "brigadista" }).save(),
-      new Role({ name: "encargado" }).save(),
+      new Rol({ name: "brigadista" }).save(),
+      new Rol({ name: "encargado" }).save(),
     ]);
     console.log("* => Roles creados exitosamente");
   } catch (error) {
@@ -114,12 +114,12 @@ async function createUsers() {
     const brigadista = await Role.findOne({ name: "brigadista" });
 
     await Promise.all([
-      new User({
+      new Usuario({
         name: "brigadista",
         email: "brigadista@email.com",
         roles: brigadista._id,
       }).save(),
-      new User({
+      new Usuario({
         name: "encargado",
         email: "encargado@email.com",
         roles: encargado._id,
