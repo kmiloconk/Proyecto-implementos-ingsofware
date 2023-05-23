@@ -1,17 +1,15 @@
 const mongoose = require("mongoose");
 
-const tipoS = ["malo", "regular", "excelente"];
+const TIPOS = ["hacha", "chaqueta", "pantalon", "capucha", "protector"];
 
 const tipoSchema = new mongoose.Schema({
   nombre: {
     type: String,
-    enum: tipoS,
+    enum: TIPOS,
     required: true,
   },
 });
 
+const Tipo = mongoose.model("Tipo", tipoSchema);
 
-const tipo = mongoose.model("tipo", tipoSchema);
-
-module.exports = tipo;
-
+module.exports = Tipo;
