@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const ROLES = ["Brigadista", "Encargado"];
+const ROLES = ["brigadista", "encargado"];
 
 const rolSchema = new mongoose.Schema({
     name: {

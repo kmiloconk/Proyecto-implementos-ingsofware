@@ -14,13 +14,13 @@ const Implemento = require("../models/Implemento.model.js");
 async function createRoles() {
   try {
     // Busca todos los roles en la base de datos
-    const count = await Role.estimatedDocumentCount();
+    const count = await Rol.estimatedDocumentCount();
     // Si no hay roles en la base de datos los crea
     if (count > 0) return;
 
     await Promise.all([
-      new Rol({ name: "brigadista" }).save(),
-      new Rol({ name: "encargado" }).save(),
+      new Rol({ nombre: "brigadista" }).save(),
+      new Rol({ nombre: "encargado" }).save(),
     ]);
     console.log("* => Roles creados exitosamente");
   } catch (error) {
@@ -46,7 +46,7 @@ async function createTipos() {
       new Tipo({ nombre: "chaqueta" }).save(),
       new Tipo({ nombre: "pantalon" }).save(),
       new Tipo({ nombre: "capucha" }).save(),
-      new Tipo({ nombre: "protector de cuello" }).save(),
+      new Tipo({ nombre: "protector" }).save(),
     ]);
     console.log("* => tipos creados exitosamente");
   } catch (error) {
@@ -107,22 +107,22 @@ async function createCategorias() {
 
 async function createUsers() {
   try {
-    const count = await User.estimatedDocumentCount();
+    const count = await Usuario.estimatedDocumentCount();
     if (count > 0) return;
 
-    const encargado = await Role.findOne({ name: "encargado" });
-    const brigadista = await Role.findOne({ name: "brigadista" });
+    const encargado = await Rol.findOne({ nombre: "encargado" });
+    const brigadista = await Rol.findOne({ nombre: "brigadista" });
 
     await Promise.all([
       new Usuario({
-        name: "brigadista",
+        nombre: "brigadista",
         email: "brigadista@email.com",
-        roles: brigadista._id,
+        rol: brigadista._id,
       }).save(),
       new Usuario({
-        name: "encargado",
+        nombre: "encargado",
         email: "encargado@email.com",
-        roles: encargado._id,
+        rol: encargado._id,
       }).save(),
     ]);
     console.log("* => Users creados exitosamente");
@@ -142,16 +142,16 @@ async function createImplementos() {
     const count = await Implemento.estimatedDocumentCount();
     if (count > 0) return;
 
-    const hacha = await Tipo.findOne({ name: "hacha" });
-    const chaqueta = await Tipo.findOne({ name: "chaqueta" });
-    const motosierra = await Tipo.findOne({ name: "motosierra" });
+    const hacha = await Tipo.findOne({ nombre: "hacha" });
+    const chaqueta = await Tipo.findOne({ nombre: "chaqueta" });
+    const motosierra = await Tipo.findOne({ nombre: "motosierra" });
 
-    const nuevo = await Estado.findOne({ name: "nuevo" });
-    const usado = await Estado.findOne({ name: "usado" });
+    const nuevo = await Estado.findOne({ nombre: "nuevo" });
+    const usado = await Estado.findOne({ nombre: "usado" });
 
-    const pesado = await Categoria.findOne({ name: "pesado" });
-    const liviano = await Categoria.findOne({ name: "liviano" });
-    const estandar = await Categoria.findOne({ name: "estandar" });
+    const pesado = await Categoria.findOne({ nombre: "pesado" });
+    const liviano = await Categoria.findOne({ nombre: "liviano" });
+    const estandar = await Categoria.findOne({ nombre: "estandar" });
 
     await Promise.all([
       new Implemento({
