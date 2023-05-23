@@ -11,6 +11,8 @@ const { setupDB } = require("./config/configDB.js");
 const { handleFatalError, handleError } = require("./utils/errorHandler.js");
 const { createRoles, verRoles, showUsers, createUsers, deleteAllUsers, eliminarRoles, createCapacitaciones, createTipos, createEstados, displayTiposMantenimientos} = require("./config/initialSetup");
 const { createTiposMantenimientos } = require("./config/initialSetup");
+const { createtipos, createestados, createcategorias, createImplementos } = require("./config/initialSetup");
+
 
 async function setupServer() {
   try {
@@ -46,6 +48,15 @@ async function setupAPI() {
     await createEstados()
     await displayTiposMantenimientos();
     await createTiposMantenimientos();
+
+    
+    await createtipos();
+
+    await createestados();
+
+    await createcategorias();
+
+
 
   } catch (err) {
     handleFatalError(err, "/server.js -> setupAPI");
