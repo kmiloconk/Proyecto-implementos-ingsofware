@@ -55,6 +55,7 @@ async function createTiposMantenimientos() {
  * @description Crea los usuarios por defecto en la base de datos
  * @returns {Promise<void>}
  */
+
 async function createUsers() {
   try {
     const count = await User.estimatedDocumentCount();
@@ -63,16 +64,23 @@ async function createUsers() {
     const admin = await Role.findOne({ name: "admin" });
     const user = await Role.findOne({ name: "user" });
 
+
+    if (!brigadista || !encargado) {
+      console.error("No se encontraron los roles 'Encargado' o 'Brigadista'");
+      return;
+    }
+
     await Promise.all([
-      new User({
-        name: "user",
-        email: "user@email.com",
-        roles: user._id,
+
+      new Usuario({
+        name: "Brigadista",
+        email: "brigadista@email.com",
+        roles: brigadista._id,
       }).save(),
-      new User({
-        name: "admin",
-        email: "admin@email.com",
-        roles: admin._id,
+      new Usuario({
+        name: "Encargado",
+        email: "encargado@email.com",
+        roles: encargado._id,
       }).save(),
     ]);
     console.log("* => Users creados exitosamente");
