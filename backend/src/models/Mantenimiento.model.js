@@ -22,7 +22,7 @@ descripcion: {
 estado: {
     type: String,
     required: true,
-    enum: ["true", "false"], 
+    enum: ["true", "false"],
 
   },
 observacion: {

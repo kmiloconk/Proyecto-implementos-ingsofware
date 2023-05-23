@@ -1,4 +1,5 @@
 const Notificacion = require("../models/Notificacion.model");
+const { notificacionBodySchema } = require("../schema/Notificacion.schema");
 const Rol = require("../models/Rol.model");
 const Usuario = require('../models/Usuario.model');
 const { handleError } = require("../utils/errorHandler");
@@ -25,6 +26,8 @@ async function getNotificaciones() {
 
 async function createNotificacion(notificacion) {
     try {
+        const { error } = notificacionBodySchema .validate(notificacion);
+        if (error) return null;
         const {brigadista, implemento, descripcion} = notificacion;
 
         const newNotificacion = new Notificacion({

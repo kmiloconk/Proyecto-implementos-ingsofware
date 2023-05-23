@@ -13,8 +13,8 @@ async function getEstado() {
 
 async function createEstado(estado) {
     try {
-    //const { error } = EstadoBodySchema.validate(estado);
-    //if (error) return null;
+    const { error } = EstadoBodySchema.validate(estado);
+    if (error) return null;
     console.log(estado);
     const { nombre } = estado;
 

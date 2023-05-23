@@ -1,6 +1,6 @@
 const Capacitacion = require("../models/Capacitacion.model");
 const { handleError } = require("../utils/errorHandler");
-const { TipoBodySchema } = require("../schema/Capacitacion.schema");
+const { CapacitacionBodySchema } = require("../schema/Capacitacion.schema");
 
 async function getCapacitacion() {
     try {
@@ -15,9 +15,9 @@ async function createCapacitacion(capacitacion) {
     try {
     const { error } = CapacitacionBodySchema.validate(capacitacion);
     if (error) return null;
-    const { name } = capacitacion;
+    const { nombre } = capacitacion;
 
-    const newCapacitacion = new Capacitacion({ name });
+    const newCapacitacion = new Capacitacion({ nombre });
     return await newCapacitacion.save();
     } catch (error) {
         handleError(error, "capacitacion.service -> createCapacitacion");
@@ -53,9 +53,9 @@ async function deleteCapacitacion(id) {
 }
 
 module.exports = {
-  getCapacitacion,
-  createCapacitacion,
-  getCapacitacionById,
-  updateCapacitacion,
-  deleteCapacitacion,
+    getCapacitacion,
+    createCapacitacion,
+    getCapacitacionById,
+    updateCapacitacion,
+    deleteCapacitacion,
 };

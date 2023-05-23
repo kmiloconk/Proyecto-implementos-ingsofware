@@ -1,18 +1,11 @@
-"use strict";
-
 const { respondSuccess, respondError } = require("../utils/resHandler");
-//const UserService = require("../services/user.service");
 const { handleError } = require("../utils/errorHandler");
+const CapacitacionService = require('../services/Capacitacion.service');
 
-/**
- * @name getCapacitacion
- * @description Obtiene todas las capacitacion
- * @param req {Request}
- * @param res {Response}
- */
+
 async function getCapacitacion(req, res) {
   try {
-    const capacitacion = await CapacitacionesService.getCapacitacion();
+    const capacitacion = await CapacitacionService.getCapacitacion();
     capacitacion.length === 0
       ? respondSuccess(req, res, 204)
       : respondSuccess(req, res, 200, capacitacion);
@@ -21,12 +14,7 @@ async function getCapacitacion(req, res) {
   }
 }
 
-/**
- * @name createCapacitacion
- * @description Crea una nueva capacitacion
- * @param req {Request}
- * @param res {Response}
- */
+
 async function createCapacitacion(req, res) {
   try {
     const nuevaCapacitacion = await CapacitacionService.createCapacitacion(req.body);
@@ -46,17 +34,11 @@ async function createCapacitacion(req, res) {
   }
 }
 
-/**
- * @name getCapacitacionById
- * @description Obtiene una capacitacion por su id
- * @param req {Request}
- * @param res {Response}
- */
 async function getCapacitacionById(req, res) {
   try {
     const { id } = req.params;
 
-    const capacitacion = await capacitacionService.getCapacitacionById(id);
+    const capacitacion = await CapacitacionService.getCapacitacionById(id);
     capacitacion === null
       ? respondError(
           req,
@@ -73,12 +55,7 @@ async function getCapacitacionById(req, res) {
   }
 }
 
-/**
- * @name updateCapacitacion
- * @description Actualiza una capacitacion por su id
- * @param req {Request}
- * @param res {Response}
- */
+
 async function updateCapacitacion(req, res) {
   try {
     const { id } = req.params;
@@ -99,12 +76,7 @@ async function updateCapacitacion(req, res) {
   }
 }
 
-/**
- * @name deleteCapacitacion
- * @description Elimina una capacitacion por su id
- * @param req {Request}
- * @param res {Response}
- */
+
 async function deleteCapacitacion(req, res) {
   try {
     const { id } = req.params;

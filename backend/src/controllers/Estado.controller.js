@@ -36,12 +36,6 @@ async function createEstado(req, res) {
   }
 }
 
-/**
- * @name getEstadoById
- * @description Obtiene un estado por su id
- * @param req {Request}
- * @param res {Response}
- */
 async function getEstadoById(req, res) {
   try {
     const { id } = req.params;
@@ -63,12 +57,7 @@ async function getEstadoById(req, res) {
   }
 }
 
-/**
- * @name updateEstado
- * @description Actualiza un estado por su id
- * @param req {Request}
- * @param res {Response}
- */
+
 async function updateEstado(req, res) {
   try {
     const { id } = req.params;
@@ -89,12 +78,6 @@ async function updateEstado(req, res) {
   }
 }
 
-/**
- * @name deleteEstado
- * @description Elimina un estado por su id
- * @param req {Request}
- * @param res {Response}
- */
 async function deleteEstado(req, res) {
   try {
     const { id } = req.params;

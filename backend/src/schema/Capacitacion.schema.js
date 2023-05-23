@@ -1,9 +1,10 @@
 const Joi = require("joi");
 
-const name = Joi.string().min(1).required();
+const nombre = Joi.string().min(3).max(30).required();
 
 const CapacitacionBodySchema = Joi.object({
-    name,
+    nombre,
+
 });
 
 module.exports = { CapacitacionBodySchema };
