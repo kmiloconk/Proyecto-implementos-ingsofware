@@ -13,4 +13,6 @@ const implementoBodySchema = Joi.object({
     categoria,
 });
 
+
 module.exports = { implementoBodySchema };
+

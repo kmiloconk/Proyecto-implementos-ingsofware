@@ -29,6 +29,7 @@ async function createRoles() {
  * @description Crea los usuarios por defecto en la base de datos
  * @returns {Promise<void>}
  */
+
 async function createUsers() {
   try {
     const count = await Usuario.estimatedDocumentCount();
@@ -37,15 +38,21 @@ async function createUsers() {
     const encargado = await Rol.findOne({ name: "Encargado" });
     const brigadista = await Rol.findOne({ name: "Brigadista" });
 
+
+    if (!brigadista || !encargado) {
+      console.error("No se encontraron los roles 'Encargado' o 'Brigadista'");
+      return;
+    }
+
     await Promise.all([
       new Usuario({
         name: "Brigadista",
-        email: "Brigadista@email.com",
+        email: "brigadista@email.com",
         roles: brigadista._id,
       }).save(),
       new Usuario({
         name: "Encargado",
-        email: "Encargado@email.com",
+        email: "encargado@email.com",
         roles: encargado._id,
       }).save(),
     ]);

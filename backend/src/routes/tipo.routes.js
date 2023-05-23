@@ -1,5 +1,6 @@
 const express = require("express");
-const tipoController = require("../controllers/tipo.controller,js");
+
+const tipoController = require("../controllers/tipo.controller");
 const authoMiddleware = require("../middlewares/autho.middleware.js");
 const router = express.Router();
 
