@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 
+
 const CATEGORIAS = ["pesado", "liviano", "estandar"];
+
 
 const categoriaSchema = new mongoose.Schema({
   nombre: {
@@ -10,6 +12,8 @@ const categoriaSchema = new mongoose.Schema({
   },
 });
 
+
 const Categoria = mongoose.model("Categoria", categoriaSchema);
+
 
 module.exports = Categoria;
