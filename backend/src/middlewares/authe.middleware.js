@@ -5,18 +5,9 @@ const { handleError } = require("../utils/errorHandler");
 
 const { JWT_SECRET } = configEnv();
 const Usuario = require("../models/Usuario.model.js");
-const Rol = require("../models/Rol.model.js");
 const { respondError } = require("../utils/resHandler");
 
-// Autenticacion - Verificamos si el token es valido
-/**
- * @name verifyToken
- * @description Verifica si el token es valido
- * @param req {Request}
- * @param res {Response}
- * @param next {NextFunction}
- * @returns {Promise<void>}
- */
+
 const verifyToken = async (req, res, next) => {
   try {
     const token = req.headers["token"];
@@ -30,9 +21,7 @@ const verifyToken = async (req, res, next) => {
       return respondError(req, res, 404, "Hay token pero no hay usuario");
     }
 
-    // Guardamos el id del usuario en la request para usarlo en los controladores
     req.usuarioId = decoded.id;
-    console.log(decoded.id);
     next();
   } catch (error) {
     handleError(error, "authe.middleware -> verifyToken");

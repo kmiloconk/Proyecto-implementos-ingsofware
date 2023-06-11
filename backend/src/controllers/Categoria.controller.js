@@ -1,5 +1,5 @@
 const { respondSuccess, respondError } = require("../utils/resHandler");
-//const CategoriaService = require("../services/Categoria.service");
+const CategoriaService = require("../services/Categoria.service");
 const { handleError } = require("../utils/errorHandler");
 
 

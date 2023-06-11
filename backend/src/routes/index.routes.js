@@ -1,5 +1,3 @@
-"use strict";
-// Importa el modulo 'express' para crear las rutas
 const express = require("express");
 
 
@@ -11,24 +9,19 @@ const authMiddleware = require("../middlewares/authe.middleware.js");
 const tipoRoutes = require('./tipo.routes');
 const implemento = require('./Implemento.routes');
 const notificacion = require('./Notificacion.routes');
-//const categoria = require("./Categoria.routes");
+const categoria = require("./Categoria.routes");
+const capacitaciones = require('./Capacitacion.routes');
 
-// Crea una instancia del enrutador
 const router = express.Router();
 
-// Define las rutas para los usuarios /api/usuarios authMiddleware.verifyToken,
 router.use("/Usuario", authMiddleware.verifyToken, usuarioRoutes);
-// Define las rutas para la autenticación /api/auth
 router.use("/auth", authRoutes);
-router.use('/Notificacion', notificacion);
-router.use("/Estado", estadoRoutes);
-router.use('/Tipo', tipoRoutes);
-router.use('/Implemento', implemento);
-//router.use('/Categoria', categoria);
+router.use('/Notificacion',authMiddleware.verifyToken, notificacion);
+router.use("/Estado",authMiddleware.verifyToken, estadoRoutes);
+router.use('/Tipo', authMiddleware.verifyToken,tipoRoutes);
+router.use('/Implemento',authMiddleware.verifyToken, implemento);
+router.use('/Categoria', authMiddleware.verifyToken,categoria);
+router.use("/Mantenimiento", authMiddleware.verifyToken, mantenimientoRoutes);
+router.use('/Capacitacion', authMiddleware.verifyToken, capacitaciones);
 
-
-router.use("/implemento", authMiddleware.verifyToken, implementoRoutes);
-router.use("/mantenimiento", authMiddleware.verifyToken, mantenimientoRoutes);
-
-// Exporta el enrutador
 module.exports = router;

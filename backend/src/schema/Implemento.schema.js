@@ -1,3 +1,4 @@
+
 const Joi = require("joi");
 
 const tipo = Joi.string().min(1).required();
@@ -17,3 +18,5 @@ const implementoBodySchema = Joi.object({
 });
 
 module.exports = { implementoBodySchema };
+
+

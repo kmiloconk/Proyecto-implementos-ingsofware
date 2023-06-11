@@ -1,10 +1,26 @@
+const TipoMantenimiento = require("../models/tipoMantenimiento.model.js");
+const Capacitacion = require('../models/Capacitacion.model');
 const Rol = require("../models/Rol.model.js");
-const Tipo = require("../models/Tipo.model.js");
+const Tipo = require("../models/tipo.model.js");
 const Estado = require("../models/Estado.model.js");
 const Categoria = require("../models/Categoria.model.js");
 const Usuario = require("../models/Usuario.model.js");
 const Implemento = require("../models/Implemento.model.js");
 
+async function createCapacitaciones() {
+  try {
+    const count = await Capacitacion.estimatedDocumentCount();
+    if (count > 0) return;
+
+    await Promise.all([
+      new Capacitacion({ nombre: "Manejo de extintores" }).save(),
+      new Capacitacion({ nombre: "Primeros auxilios" }).save(),
+      new Capacitacion({ nombre: "Evaluación de riesgos" }).save(),
+    ]);
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 
 async function eliminarRoles() {
@@ -15,6 +31,7 @@ async function eliminarRoles() {
     console.error(error);
   }
 }
+
 
 async function createRoles() {
   try {
@@ -49,17 +66,14 @@ async function deleteAllUsers() {
     console.error(error);
   }
 }
-/**
- * @name createTiposMantenimientos
- * @description Crea los Tiposmantenimientos por defecto en la base de datos
- * @returns {Promise<void>}
- */
+
+
+
 async function createTiposMantenimientos() {
   try {
 
 
     const count = await TipoMantenimiento.estimatedDocumentCount();
-    // Si no hay tipos de mantenimiento en la base de datos los crea
     if (count > 0) return;
     await Promise.all([
       new TipoMantenimiento({ nombre: "correctivo" }).save(),
@@ -71,6 +85,25 @@ async function createTiposMantenimientos() {
     console.error(error);
   }
 }
+
+
+async function displayTiposMantenimientos() {
+  try {
+    const tiposMantenimientos = await TipoMantenimiento.find();
+    if (tiposMantenimientos.length === 0) {
+      console.log("No se encontraron tipos de mantenimiento.");
+      return;
+    }
+
+    console.log("Tipos de Mantenimiento:");
+    tiposMantenimientos.forEach((tipoMantenimiento) => {
+      console.log(`- ID: ${tipoMantenimiento._id} - Nombre: ${tipoMantenimiento.nombre}`);
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 
 async function createUsers() {
   try {
@@ -116,45 +149,8 @@ async function showUsers() {
   }
 }
 
-async function solicitarEquipamiento(brigadistaId, implementoId) {
-  try {
-    // Verificar si el brigadista existe
-    const brigadista = await Usuario.findById(brigadistaId);
-    if (!brigadista) {
-      console.log("Brigadista no encontrado");
-      return;
-    }
-
-    // Verificar si el usuario es un brigadista
-    const brigadistaRole = await Rol.findOne({ nombre: "Brigadista" });
-    if (!brigadista.rol.equals(brigadistaRole._id)) {
-      console.log("El usuario no es un brigadista");
-      return;
-    }
-    const implemento = await Usuario.findById(implementoId);
-    // Crear la notificación y guardarla en la base de datos
-    const notificacion = new Notificacion({
-      brigadista: brigadista._id,
-      implemento: implemento._id,
-      estado: "Pendiente",
-    });
-    await notificacion.save();
-
-    console.log("Notificación creada exitosamente");
-  } catch (error) {
-    console.error(error);
-  }
-}
 
 
-
-
-
-/**
- * @name createtipos
- * @description Crea los tipos por defecto en la base de datos
- * @returns {Promise<void>}
- */
 
 async function createTipos() {
   try {
@@ -176,11 +172,7 @@ async function createTipos() {
   }
 }
 
-/**
- * @name createEstados
- * @description Crea los estados por defecto en la base de datos
- * @returns {Promise<void>}
- */
+
 async function createEstados() {
   try {
     // Busca todos los roles en la base de datos
@@ -198,11 +190,6 @@ async function createEstados() {
   }
 }
 
-/**
- * @name createCategorias
- * @description Crea las categorias por defecto en la base de datos
- * @returns {Promise<void>}
- */
 
 async function createCategorias() {
   try {
@@ -266,9 +253,9 @@ async function createImplementos() {
     const nuevo = await Estado.findOne({ nombre: "nuevo" });
     const usado = await Estado.findOne({ nombre: "usado" });
 
-    const pesado = await Categoria.findOne({ nombre: "pesado" });
-    const liviano = await Categoria.findOne({ nombre: "liviano" });
-    const estandar = await Categoria.findOne({ nombre: "estandar" });
+    const pesado = await Categoria.findOne({ name: "pesado" });
+    const liviano = await Categoria.findOne({ name: "liviano" });
+    const estandar = await Categoria.findOne({ name: "estandar" });
 
     await Promise.all([
       new Implemento({
@@ -303,6 +290,9 @@ async function createImplementos() {
 
 
 
+
+
+
 module.exports = {
   createRoles,
   createTipos,
@@ -310,12 +300,13 @@ module.exports = {
   createCategorias,
   createImplementos,
   createTiposMantenimientos,
-  createMantenimientos,
+  createImplementos,
   createUsers,
   verRoles,
   eliminarRoles,
   showUsers,
-  solicitarEquipamiento,
-  deleteAllUsers
+  deleteAllUsers,
+  displayTiposMantenimientos,
+  createCapacitaciones
 };
 

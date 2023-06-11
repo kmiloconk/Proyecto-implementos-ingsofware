@@ -1,13 +1,10 @@
 const Implemento = require("../models/Implemento.model");
-const tipo = require("../models/Tipo.model");
-const estado = require("../models/Estado.model");
-const categoria = require("../models/Categoria.model");
 const { handleError } = require("../utils/errorHandler");
 const { implementoBodySchema } = require("../schema/Implemento.schema");
 
 async function getImplementos() {
     try {
-        return await Implemento.find().populate('tipo').populate('estado');
+        return await Implemento.find().populate('tipo').populate('estado').populate('categoria').populate('solicitadoPorBrigadista');
     } catch (error) {
         handleError(error, "Implemento.service -> getImplementos");
     }
@@ -21,18 +18,9 @@ async function createImplemento(implemento) {
     if (error) return null;
     const { tipo, estado, fechaVencimiento, categoria, solicitadoPorBrigadista} = implemento;
 
-
-    const tipoFound = await tipo.find({ nombre: { $in: tipo } });
-    const mytipo = tipoFound.map((tipo) => tipo._id);
-
-    const estadoFound = await estado.find({ nombre: { $in: estado } });
-    const myestado = estadoFound.map((estado) => estado._id);
-
-    const categoriaFound = await categoria.find({ nombre: { $in: categoria } });
-    const mycategoria = categoriaFound.map((categoria) => categoria._id);
+    const newImplemento = new Implemento({ tipo, estado, fechaVencimiento, categoria, solicitadoPorBrigadista });
 
 
-    const newImplemento = new Implemento({ tipo: mytipo, estado: myestado, fechaVencimiento, categoria: mycategoria, solicitadoPorBrigadista});
     return await newImplemento.save();
     } catch (error) {
         handleError(error, "implemento.service -> createImplemento");
@@ -74,3 +62,4 @@ module.exports = {
     updateImplemento,
     deleteImplemento,
 };
+
