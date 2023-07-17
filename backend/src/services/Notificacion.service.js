@@ -24,11 +24,11 @@ async function getNotificaciones() {
     }
 }
 
-async function createNotificacion(notificacion) {
+async function createNotificacion(req,notificacion) {
     try {
         const { error } = notificacionBodySchema .validate(notificacion);
         if (error) return null;
-        const {brigadista, implemento, descripcion} = notificacion;
+        const { brigadista,implemento, descripcion} = notificacion;
 
         const newNotificacion = new Notificacion({
             brigadista,
@@ -46,7 +46,7 @@ async function createNotificacion(notificacion) {
 
 async function deleteNotificacion(id) {
     try {
-        return await Implemento.findByIdAndDelete(id);
+        return await Notificacion.findByIdAndDelete(id);
     } catch (error) {
         handleError(error, "implemento.service -> deleteImplemento");
     }

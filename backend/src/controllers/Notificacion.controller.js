@@ -48,7 +48,7 @@ async function deleteNotificacion(req, res) {
             "Not Found",
             { message: "Verifique el id ingresado" },
         )
-        : respondSuccess(req, res, 200, implemento);
+        : respondSuccess(req, res, 200, notificacion);
     } catch (error) {
         handleError(error, "Notificacion.controller -> deleteNotificacion");
         respondError(req, res, 500, "No se pudo eliminar la notificacion");
